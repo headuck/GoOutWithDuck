@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<resources>
+    <color name="app_color_black">#de000000</color>
+    <color name="app_color_gray_50">#fafafa</color>
+    <color name="app_color_gray_60">#eaeaea</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="app_color_dark_green_night">#1a231e</color>
+    <color name="app_color_dark_green">#137524</color>
+    <color name="app_color_green">#13b188</color>
+    <color name="app_color_light_green">#B4E3D7</color>
+    <color name="app_color_yellow">#FFDA30</color>
+    <color name="app_color_transparent_grey">#80000000</color>
+    <color name="app_color_inverse_text">#ffffff</color>
+    <color name="app_color_inverse_text_disabled">#80ffffff</color>
+    <color name="app_color_scan_bg">#000000</color>
+    <color name="app_color_ripple">#40ffffff</color>
+    <color name="app_color_text_on_light">#c0000000</color>
+
+    <color name="ic_launcher_background">@color/app_color_green</color>
+</resources>

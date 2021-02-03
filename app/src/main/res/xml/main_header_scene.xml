@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@+id/start"
+        motion:duration="1000"
+        motion:motionInterpolator="linear">
+
+        <KeyFrameSet>
+            <KeyPosition
+                motion:curveFit="spline"
+                motion:transitionEasing="decelerate"
+                motion:framePosition="50"
+                motion:keyPositionType="pathRelative"
+                motion:motionTarget="@id/home_button_location"
+                motion:percentWidth="0"
+                motion:percentX="0"
+                />
+
+            <KeyPosition
+                motion:curveFit="spline"
+                motion:transitionEasing="decelerate"
+                motion:framePosition="50"
+                motion:keyPositionType="pathRelative"
+                motion:motionTarget="@id/home_button_taxi"
+                motion:percentWidth="0"
+                motion:percentX="0"
+                />
+
+            <KeyAttribute
+                motion:framePosition="50"
+                motion:motionTarget="@id/home_button_location"
+                motion:layout_constraintStart_toStartOf="parent"
+                motion:layout_constraintEnd_toStartOf="@+id/home_button_taxi"
+                motion:layout_constraintBottom_toTopOf="@+id/main_bar_guideline_card_bottom"
+                motion:layout_constraintTop_toTopOf="@+id/main_bar_guideline_card_top"
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="0dp"
+                />
+
+            <KeyAttribute
+                motion:framePosition="50"
+                motion:motionTarget="@id/home_button_taxi"
+
+                motion:layout_constraintEnd_toEndOf="parent"
+                motion:layout_constraintStart_toEndOf="@+id/home_button_location"
+                motion:layout_constraintBottom_toTopOf="@+id/main_bar_guideline_card_bottom"
+                motion:layout_constraintTop_toTopOf="@+id/main_bar_guideline_card_top"
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="0dp"
+                 />
+
+        </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+
+        <Constraint
+            android:id="@id/main_bar_guideline_card_top"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CustomAttribute
+                motion:attributeName="GuidelinePercent"
+                motion:customFloatValue="0.40" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/main_bar_guideline_card_bottom"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CustomAttribute
+                motion:attributeName="GuidelinePercent"
+                motion:customFloatValue="1" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/main_bar_white_decor"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/appbar_white_decor_height"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:translationY="4dp"
+            motion:layout_constraintHorizontal_bias="1.0">
+            <CustomAttribute
+                motion:attributeName="cardElevation"
+                motion:customPixelDimension="0dp" />
+            <CustomAttribute
+                motion:attributeName="scaleY"
+                motion:customFloatValue="1" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/main_text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toTopOf="@+id/main_bar_guideline_card_top"
+            android:layout_marginStart="16dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent">
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customFloatValue="@integer/text_size_main_title" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/main_bar_guideline_card_collapse_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            motion:layout_constraintGuide_end="@dimen/main_header_height" />
+
+        <Constraint
+            android:id="@+id/home_button_location"
+            motion:layout_constraintEnd_toStartOf="@+id/home_button_taxi"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toTopOf="@+id/main_bar_guideline_card_bottom"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            motion:layout_constraintTop_toTopOf="@+id/main_bar_guideline_card_top"
+            motion:layout_constraintStart_toStartOf="parent"/>
+        <Constraint
+            android:id="@+id/home_button_taxi"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toEndOf="@+id/home_button_location"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toTopOf="@+id/main_bar_guideline_card_bottom"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            motion:layout_constraintTop_toTopOf="@+id/main_bar_guideline_card_top" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+
+        <Constraint
+            android:id="@id/main_bar_guideline_card_top"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintGuide_end="?attr/actionBarSize">
+        </Constraint>
+
+        <Constraint
+            android:id="@id/main_bar_guideline_card_bottom"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        <CustomAttribute
+            motion:attributeName="GuidelinePercent"
+            motion:customFloatValue="1" />
+        </Constraint>
+
+
+        <Constraint
+            android:id="@id/main_bar_white_decor"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/appbar_white_decor_height"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:translationY="10dp"
+            motion:layout_constraintHorizontal_bias="0.0">
+            <CustomAttribute
+                motion:attributeName="cardElevation"
+                motion:customDimension="0dp" />
+            <CustomAttribute
+                motion:attributeName="scaleY"
+                motion:customFloatValue="0" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/main_text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintBottom_toTopOf="@+id/main_bar_guideline_card_collapse_height">
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customFloatValue="24" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/main_bar_guideline_card_collapse_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            motion:layout_constraintGuide_end="?attr/actionBarSize" />
+        <Constraint
+            android:id="@+id/home_button_location"
+            motion:layout_constraintEnd_toStartOf="@+id/home_button_taxi"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/main_bar_guideline_card_bottom"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="0dp"
+            motion:layout_constraintTop_toTopOf="@+id/main_bar_guideline_card_top"/>
+        <Constraint
+            android:id="@+id/home_button_taxi"
+            motion:layout_constraintEnd_toStartOf="@id/image_icon_setting"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/main_bar_guideline_card_bottom"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="0dp"
+            motion:layout_constraintTop_toTopOf="@+id/main_bar_guideline_card_top" />
+    </ConstraintSet>
+
+</MotionScene>

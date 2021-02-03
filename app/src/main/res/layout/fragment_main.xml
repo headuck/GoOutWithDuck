@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!--<variable
+            name="showFab"
+            type="boolean" />-->
+        <!--<import type="gooutwithduckduck.data.Plant"/>-->
+        <import type="androidx.lifecycle.LiveData"/>
+        <variable
+            name="viewModel"
+            type="com.headuck.app.gooutwithduck.viewmodels.MainViewModel" />
+        <variable
+            name="hideFab"
+            type="LiveData&lt;Boolean&gt;" />
+        <!--<variable
+            name="callback"
+            type="gooutwithduckduck.MainFragment.Callback" />-->
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/fragment_main_coord_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.headuck.app.gooutwithduck.HomeActivity"
+
+        tools:ignore="MergeRootFrame">
+
+        <!-- include app bar -->
+        <include layout="@layout/fragment_main_appbar"
+            android:id="@+id/fragment_main_app_bar"
+            app:ref="@{1}"
+            />
+
+        <include layout="@layout/fragment_main_bookmark"
+            android:id="@+id/fragment_main_bookmark"
+            app:ref="@{2}"
+        />
+
+        <!-- include bottom sheet -->
+        <include layout="@layout/fragment_main_bottom_sheet"
+            android:id="@+id/fragment_main_bottom_sheet"
+            app:ref="@{3}"
+        />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            app:srcCompat="@drawable/ic_exit_venue"
+            app:elevation="@dimen/fab_elevation"
+            app:layout_anchor="@+id/fragment_main_bottom_sheet"
+            app:layout_anchorGravity="top|end"
+            app:layout_behavior=".views.FabManualHideBehavior"
+            android:clickable="true"
+            android:focusable="true"
+            app:isFabGone="@{hideFab}"/>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

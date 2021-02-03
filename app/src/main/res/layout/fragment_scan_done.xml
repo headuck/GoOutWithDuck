@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="venueVisitInfo" type="com.headuck.app.gooutwithduck.data.VenueVisitInfo" />
+        <variable name="callback"
+            type="com.headuck.app.gooutwithduck.ScanDoneFragment.Callback" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/inverseBackgroundColor"
+        android:theme="@style/ThemeOverlay.GoOutWithDuck.DoneScreen"
+        android:fitsSystemWindows="true"
+        tools:context=".ScanDoneFragment">
+
+        <ImageView
+            android:id="@+id/scan_done_close"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{(v) -> callback.onDismiss(v)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_outline_clear" />
+
+        <TextView
+            android:id="@+id/scan_done_enter_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{venueVisitInfo.type == `TAXI`? @string/enter_taxi : @string/enter_venue}"
+            android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.ScanDone"
+            app:layout_constraintTop_toBottomOf="@+id/scan_done_guideline_h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/enter_venue"/>
+
+        <TextView
+            android:id="@+id/scan_done_taxi_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.ScanDone"
+            android:text="@string/license_plate"
+            android:visibility="@{venueVisitInfo.type == `TAXI`? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@+id/scan_done_enter_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/scan_done_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingStart="@dimen/card_side_margin"
+            android:paddingEnd="@dimen/card_side_margin"
+            android:text="@{venueVisitInfo.type == `TAXI`? venueVisitInfo.taxiNo : venueVisitInfo.name}"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.ScanDone.Highlight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_done_taxi_text"
+            tools:text="Diamond Hill Shopping Center" />
+
+        <TextView
+            android:id="@+id/scan_done_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.ScanDone"
+            android:text="@{venueVisitInfo.inTimeStr}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_done_name"
+            tools:text="2020-12-11 11:11"/>
+
+        <ImageView
+            android:id="@+id/scan_done_image_tick"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/ic_circle_tick"
+            app:layout_constraintBottom_toTopOf="@+id/scan_done_leave_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_done_date_time"
+            app:layout_constraintVertical_bias="0.33" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/scan_done_leave_button">
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <CheckBox
+                android:id="@+id/scan_done_check_box"
+                android:layout_weight="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/scan_done_auto_leave_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.ScanDone"
+                android:text="@string/scan_done_autoleave"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/scan_done_auto_leave_spinner"
+                style="@style/ScanDoneSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_gravity="center_vertical"
+                android:entries="@array/scan_done_auto_leave_duration"
+                android:spinnerMode="dropdown" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scan_done_leave_button"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:onClick="@{(v) -> callback.onLeaveButtonClick(v)}"
+            android:padding="12dp"
+            android:text="@string/button_leave"
+            android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.Button"
+            android:theme="@style/HighlightButtonTheme"
+            app:cornerRadius="@dimen/leave_button_corner_radius"
+            app:layout_constraintBottom_toTopOf="@+id/scan_done_bottom_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/scan_done_guideline_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.16" />
+
+        <TextView
+            android:id="@+id/scan_done_bottom_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/checkout_reminder"
+            android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.ScanDone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

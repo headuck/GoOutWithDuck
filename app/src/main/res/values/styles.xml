@@ -1,0 +1,175 @@
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<resources>
+    <style name="SplashScreenTheme" parent = "Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+        <item name="colorPrimaryDark">@color/app_color_dark_green</item>
+        <item name="colorOnSurface">@color/app_color_black</item>
+        <item name="colorAccent">@color/app_color_dark_green</item>
+    </style>
+    <!-- To see how these attributes are used, please visit https://material.io/develop/android/theming/color/ -->
+    <style name="Base.Theme.GoOutWithDuck" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/app_color_green</item>
+        <item name="colorOnPrimary">@color/app_color_yellow</item>
+        <item name="colorPrimaryDark">@color/app_color_dark_green</item>
+        <item name="colorOnSurface">@color/app_color_black</item>
+        <item name="colorAccent">@color/app_color_dark_green</item>
+        <item name="colorSurface">@color/app_color_gray_50</item>
+        <item name="colorSecondary">@color/app_color_yellow</item>
+        <item name="android:windowBackground">@color/app_color_gray_60</item>
+
+    </style>
+
+    <style name="Theme.GoOutWithDuck" parent="Base.Theme.GoOutWithDuck" />
+
+    <style name="Theme.GoOutWithDuck.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.GoOutWithDuck.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="Widget.GoOutWithDuck.Toolbar"  parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="titleTextColor">@color/app_color_inverse_text</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="TextAppearance.GoOutWithDuck.Text" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="fontFamily">@font/rubik_regular</item>
+    </style>
+
+    <style name="TextAppearance.GoOutWithDuck.Text.ScanDone">
+        <item name="android:textSize">@dimen/text_size_hint</item>
+        <item name="android:shadowColor">@color/app_color_black</item>
+        <item name="android:shadowRadius">@dimen/shadow_radius</item>
+        <item name="android:shadowDx">@dimen/shadow_offset</item>
+        <item name="android:shadowDy">@dimen/shadow_offset</item>
+        <item name="android:textColor">@color/app_color_inverse_text</item>
+    </style>
+
+
+    <style name="TextAppearance.GoOutWithDuck.Text.MainTitle">
+        <item name="android:textColor">@color/app_color_inverse_text</item>
+        <item name="android:textSize">@dimen/text_size_main_title</item>
+        <item name="android:shadowColor">@color/app_color_black</item>
+        <item name="android:shadowRadius">@dimen/shadow_radius</item>
+        <item name="android:shadowDx">@dimen/shadow_offset</item>
+        <item name="android:shadowDy">@dimen/shadow_offset</item>
+        <item name="fontFamily">@font/rubik_medium</item>
+    </style>
+
+    <style name="TextAppearance.GoOutWithDuck.Text.ScanDone.Highlight" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textSize">@dimen/text_size_scandone_highlight</item>
+        <item name="android:shadowColor">@color/app_color_black</item>
+        <item name="android:shadowRadius">@dimen/shadow_radius</item>
+        <item name="android:shadowDx">@dimen/shadow_offset</item>
+        <item name="android:shadowDy">@dimen/shadow_offset</item>
+        <item name="fontFamily">@font/rubik_medium</item>
+    </style>
+
+    <style name="TextAppearance.GoOutWithDuck.Text.Button" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textSize">@dimen/text_size_button</item>
+        <item name="fontFamily">@font/rubik_regular</item>
+    </style>
+
+    <style name="TextAppearance.GoOutWithDuck.Text.Button.Main">
+        <item name="android:textSize">@dimen/text_size_main_button</item>
+        <item name="android:textColor">@color/app_color_inverse_text</item>
+    </style>
+
+    <style name="TextAppearance.GoOutWithDuck.Text.Inverse">
+        <item name="android:textColor">@color/app_color_inverse_text</item>
+    </style>
+
+    <style name="HighlightButtonTheme" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ButtonStyleTextColor</item>
+    </style>
+
+    <style name="ButtonStyleTextColor">
+        <item name="colorOnPrimary">@color/app_color_black</item>
+    </style>
+
+    <style name="CardViewButtonBackground" parent="CardView">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="android:foreground">@drawable/selectable_main_button</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+
+    <style name="CardViewButtonBookmarkBackground">
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="CardViewButton" parent="CardView">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="android:foreground">@drawable/selectable_main_button</item>
+        <item name="cardCornerRadius">@dimen/main_card_corner_radius</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.BottomSheet" parent="">
+        <item name="cornerSizeTopLeft">@dimen/main_card_corner_radius</item>
+        <item name="cornerSizeTopRight">@dimen/main_card_corner_radius</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+
+    </style>
+
+    <style name="BottomSheet.GoOutWithDuck" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.BottomSheet</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+
+    </style>
+
+    <style name="CardView.MainBackground" parent="Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MainBackgroundCard</item>
+        <item name="cardBackgroundColor">@color/app_color_gray_60</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MainBackgroundCard" parent="">
+        <item name="cornerSizeTopLeft">@dimen/main_card_corner_radius</item>
+        <item name="cornerSizeTopRight">@dimen/main_card_corner_radius</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+    </style>
+
+    <style name="ScanDoneSpinner" parent="Widget.AppCompat.Spinner">
+        <item name="backgroundTint">?attr/inverseTextColor</item>
+        <item name="android:popupBackground">?attr/inverseBackgroundColor</item>
+    </style>
+
+
+
+</resources>

@@ -1,0 +1,95 @@
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<resources>
+    <string name="app_name">出 duck 嚟行</string>
+    <string name="app_short_name">出🦆嚟行</string>
+
+    <string name="menu_home">主頁</string>
+    <string name="menu_email">通知</string>
+    <string name="menu_upload">報告</string>
+    <string name="menu_confirmed">個案</string>
+    <string name="menu_history">紀錄</string>
+    <string name="menu_settings">設定</string>
+
+    <string name="title_main_record_text">記錄到訪地點</string>
+    <string name="title_history">到訪紀錄</string>
+
+    <string name="notification_last_update">最近於 %s 更新</string>
+    <string name="notification_count">次未讀風險通知</string>
+    <string name="notification_hint">跳至詳細訊息</string>
+
+    <string name="camera_permission_text">給予相機權限</string>
+    <string name="camera_permission_denied_text">未能取得相機權限</string>
+    <string name="camera_scan_text">掃描二維碼</string>
+    <string name="scan_already_checked_in">地點尚未離開，不能重覆記錄</string>
+
+    <string name="scan_done_autoleave">自動離開時間</string>
+
+
+    <string name="license_plate">車牌號碼:</string>
+    <string name="checkout_reminder">當你離開時請緊記按\"離開\"</string>
+    <string name="button_leave">離開</string>
+    <string name="enter_taxi">你已進入的士</string>
+    <string name="enter_venue">你已進入場所</string>
+    <string name="title_scan_code">掃描二維碼</string>
+
+    <string name="home_venue0_title">掃描</string>
+    <string name="home_venue0_desc">到訪時掃描二維碼</string>
+    <string name="home_venue1_title">輸入</string>
+    <string name="home_venue1_desc">輸入到訪紀錄</string>
+
+    <string name="menu_filter_by_type">按場所類別</string>
+
+    <string name="leave_success_message">於 %1$s 離開 %2$s</string>
+    <string name="leave_success_edit_action">更改</string>
+
+    <plurals name="checkin_others">
+        <item quantity="other">及另外 %d 個地點</item>
+    </plurals>
+
+    <string name="duration_5_minutes">5 分鐘後</string>
+    <string name="duration_15_minutes">15 分鐘後</string>
+    <string name="duration_30_minutes">30 分鐘後</string>
+    <string name="duration_45_minutes">45 分鐘後</string>
+    <string name="duration_1_hour">1 小時後</string>
+    <string name="duration_2_hours">2 小時後</string>
+    <string name="duration_3_hours">3 小時後</string>
+    <string name="duration_4_hours">4 小時後</string>
+    <string name="duration_5_hours">5 小時後</string>
+    <string name="duration_6_hours">6 小時後</string>
+    <string name="duration_8_hours">8 小時後</string>
+    <string name="duration_10_hours">10 小時後</string>
+    <string name="duration_12_hours">12 小時後</string>
+    <string name="duration_14_hours">14 小時後</string>
+    <string name="duration_16_hours">16 小時後</string>
+    <string name="duration_18_hours">18 小時後</string>
+    <string name="duration_24_hours">24 小時後</string>
+
+    <string name="title_venue_details">場所到訪詳情</string>
+    <string name="details_visit_date">到訪日期</string>
+    <string name="details_entry_time">進入時間</string>
+    <string name="details_exit_time">離開時間</string>
+    <string name="details_venue_name">地點</string>
+    <string name="details_venue_type">種類</string>
+    <string name="details_change">更改</string>
+
+
+</resources>

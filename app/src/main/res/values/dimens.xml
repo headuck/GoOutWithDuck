@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<resources>
+
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+
+    <dimen name="card_side_margin_main">16dp</dimen>
+    <dimen name="card_side_margin">12dp</dimen>
+    <dimen name="card_bottom_margin">8dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
+
+    <dimen name="bottom_sheet_collapse_height">54dp</dimen>
+    <dimen name="bottom_sheet_elevation">2dp</dimen>
+    <dimen name="fab_elevation">6dp</dimen>
+
+    <dimen name="button_text_margin">12dp</dimen>
+
+    <!-- List Header margin -->
+    <dimen name="header_margin">24dp</dimen>
+
+    <dimen name="main_card_corner_radius">18dp</dimen>
+
+    <!-- for "Leave" button in scandone fragment -->
+    <dimen name="leave_button_corner_radius">24dp</dimen>
+
+    <!-- main app bar dimensions -->
+    <dimen name="main_header_height">216dp</dimen>
+    <dimen name="appbar_white_decor_height">92dp</dimen>
+
+    <!-- swipe menu button size -->
+    <dimen name="swipe_button_size">48dp</dimen>
+    <dimen name="swipe_icon_size">24dp</dimen>
+
+    <dimen name="pin_icon_size">18dp</dimen>
+
+    <!-- text size -->
+    <!-- note for motion layout the same size is defined as @integer/text_size_main_title -->
+    <dimen name="text_size_main_title">30dp</dimen>
+
+    <dimen name="text_size_hint">16sp</dimen>
+    <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="text_size_larger">18sp</dimen>
+    <dimen name="text_size_venue_detail_time">26sp</dimen>
+    <dimen name="text_size_notification_num">24sp</dimen>
+
+    <dimen name="text_size_scandone_highlight">26sp</dimen>
+    <dimen name="text_size_button">22sp</dimen>
+    <dimen name="text_size_main_button">24sp</dimen>
+    <dimen name="shadow_radius">2</dimen>
+    <dimen name="shadow_offset">1</dimen>
+</resources>

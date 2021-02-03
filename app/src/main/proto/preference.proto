@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_package = "com.headuck.app.gooutwithduck.proto";
+option java_multiple_files = true;
+
+message UserPreferences {
+    int64 first_install_time = 1;
+    int64 last_download_time = 2;
+    int64 last_auto_delete_time = 3;
+    int64 last_report_time = 4;
+    int32 last_download_batch = 5;
+    int64 last_user_download_time = 6;
+    int32 auto_checkout_duration = 7;
+    int32 retention_days = 8;
+    int32 check_exposure_days = 9;
+    int32 indirect_vehicle_days = 10;
+    int32 direct_overlap_duration = 11;
+    enum Language {
+        ZH_HK = 0;
+        ZH_CN = 1;
+        ZH_EN = 2;
+    }
+    Language language = 12;
+    bool scan_sound = 13;
+    bool auto_checkout_on = 14;
+}

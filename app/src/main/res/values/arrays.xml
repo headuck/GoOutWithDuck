@@ -1,0 +1,61 @@
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+<!--?xml version="1.0" encoding="utf-8"?-->
+<resources>
+    <string-array name="scan_done_auto_leave_duration">
+        <item>@string/duration_5_minutes</item>
+        <item>@string/duration_15_minutes</item>
+        <item>@string/duration_30_minutes</item>
+        <item>@string/duration_45_minutes</item>
+        <item>@string/duration_1_hour</item>
+        <item>@string/duration_2_hours</item>
+        <item>@string/duration_3_hours</item>
+        <item>@string/duration_4_hours</item>
+        <item>@string/duration_5_hours</item>
+        <item>@string/duration_6_hours</item>
+        <item>@string/duration_8_hours</item>
+        <item>@string/duration_10_hours</item>
+        <item>@string/duration_12_hours</item>
+        <item>@string/duration_14_hours</item>
+        <item>@string/duration_16_hours</item>
+        <item>@string/duration_18_hours</item>
+        <item>@string/duration_24_hours</item>
+    </string-array>
+
+    <integer-array name="scan_done_auto_leave_duration_int">
+        <item>300</item>
+        <item>900</item>
+        <item>1800</item>
+        <item>2700</item>
+        <item>3600</item>
+        <item>7200</item>
+        <item>10800</item>
+        <item>14400</item>
+        <item>18000</item>
+        <item>21600</item>
+        <item>28800</item>
+        <item>36000</item>
+        <item>43200</item>
+        <item>50400</item>
+        <item>57600</item>
+        <item>64800</item>
+        <item>86400</item>
+    </integer-array>
+</resources>

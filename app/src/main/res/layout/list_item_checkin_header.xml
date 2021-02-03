@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+       <!-- <variable name="localeUtilCompanion"
+            type="gooutwithduckduck.utilities.LocaleUtil.Companion"/>-->
+        <import type="com.headuck.app.gooutwithduck.utilities.LocaleUtil" />
+        <import type="android.view.View"/>
+        <variable
+            name="displayLang"
+            type="String" />
+        <variable
+            name="checkInHeaderItem"
+            type="com.headuck.app.gooutwithduck.data.CheckInUiModel.CheckInHeaderItem"/>
+    </data>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_sheet_collapse_height">
+
+        <TextView
+            android:id="@+id/checkin_header_item_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:gravity="start"
+            android:text="@{LocaleUtil.getVisitLocationName(displayLang, checkInHeaderItem.venueInfo)}"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="?attr/colorOnPrimarySurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/checkin_header_others"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Venue 1" />
+
+
+        <TextView
+            android:id="@+id/checkin_header_others"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:gravity="start"
+            android:text="@{LocaleUtil.getVisitLocationOthers(context, displayLang, checkInHeaderItem.others)}"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            android:textColor="?attr/colorOnPrimarySurface"
+            android:visibility="@{checkInHeaderItem.others != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkin_header_item_title"
+            tools:text="and 3 other places" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</layout>

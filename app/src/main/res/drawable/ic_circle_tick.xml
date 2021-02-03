@@ -1,0 +1,38 @@
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+  <path
+      android:pathData="M99.257,99.854m-83.855,0a83.855,83.855 0,1 1,167.71 0a83.855,83.855 0,1 1,-167.71 0"
+      android:strokeWidth="6"
+      android:fillColor="#00000000"
+      android:strokeColor="#fefefe"/>
+  <path
+      android:pathData="M63,103L85,125L136,72"
+      android:strokeLineJoin="miter"
+      android:strokeWidth="6"
+      android:fillColor="#00000000"
+      android:strokeColor="#fefefe"
+      android:strokeLineCap="square"/>
+</vector>

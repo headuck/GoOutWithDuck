@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+package com.headuck.app.gooutwithduck.proto;
+
+message ExposureKeyExport {
+    optional fixed64 startTs = 1;
+    optional fixed64 endTs = 2;
+    required int32 batchSize = 3;
+
+    message ExposureKey {
+        required string keyData = 1;
+        required string keyInterval = 2;
+    }
+
+    repeated ExposureKey keys = 4;
+}

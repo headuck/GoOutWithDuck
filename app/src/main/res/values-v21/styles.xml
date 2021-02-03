@@ -1,0 +1,61 @@
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<resources>
+
+    <style name="Theme.GoOutWithDuck" parent="Base.Theme.GoOutWithDuck">
+        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
+
+    </style>
+
+    <style name="SelectableItemBackground">
+        <item name="colorControlHighlight">#80ffffff</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="CardViewButtonBookmark" parent="CardView">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">@drawable/selectable_main_button</item>
+        <item name="android:stateListAnimator">@animator/lift_on_touch</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+
+    <style name="CardViewButtonBookmarkBackground">
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="CardViewButton" parent="CardView">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">@drawable/selectable_main_button</item>
+        <item name="android:stateListAnimator">@animator/lift_on_touch</item>
+        <item name="cardCornerRadius">@dimen/main_card_corner_radius</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+
+    <style name="BottomSheet.GoOutWithDuck" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.BottomSheet</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:elevation">@dimen/bottom_sheet_elevation</item>
+    </style>
+</resources>

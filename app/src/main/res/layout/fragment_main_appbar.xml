@@ -1,0 +1,197 @@
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="ref" type="int"/>
+    </data>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_header_height"
+        android:background="?attr/colorPrimary"
+        app:layout_behavior=".views.AppBarBehavior">
+
+        <com.headuck.app.gooutwithduck.views.MotionToolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            app:layoutDescription="@xml/main_header_scene"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+
+            <ImageView
+                android:id="@+id/image_icon_setting"
+                app:srcCompat="@drawable/ic_menu_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/main_bar_guideline_card_collapse_height"
+                android:padding="16dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                app:tint="@color/app_color_inverse_text" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_bar_guideline_card_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_bar_guideline_card_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_bar_guideline_card_mid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.65" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_bar_guideline_card_collapse_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="?attr/actionBarSize" />
+
+
+            <com.headuck.app.gooutwithduck.views.MaskedCardView
+                android:id="@+id/main_bar_white_decor"
+                style="@style/CardView.MainBackground"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:transformPivotY="140dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/home_button_location"
+                style="@style/CardViewButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/main_bar_guideline_card_bottom"
+                app:layout_constraintEnd_toStartOf="@+id/home_button_taxi"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/main_bar_guideline_card_top">
+
+                <ImageView
+                    android:id="@+id/image_venue0"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/venue0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/button_text_margin"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/home_venue0_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_venue0_title"
+                        android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.Button.Main" />
+
+                    <TextView
+                        android:id="@+id/home_venue0_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_venue0_desc"
+                        android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.Inverse" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/home_button_taxi"
+                style="@style/CardViewButton"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toTopOf="@+id/main_bar_guideline_card_bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/home_button_location"
+                app:layout_constraintTop_toTopOf="@+id/main_bar_guideline_card_top">
+
+                <ImageView
+                    android:id="@+id/image_venue1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/venue1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/button_text_margin"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/home_venue1_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_venue1_title"
+                        android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.Button.Main" />
+
+                    <TextView
+                        android:id="@+id/home_venue1_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_venue1_desc"
+                        android:textAppearance="@style/TextAppearance.GoOutWithDuck.Text.Inverse" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/main_text_title"
+                style="@style/TextAppearance.GoOutWithDuck.Text.MainTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/title_main_record_text"
+                app:layout_constraintBottom_toTopOf="@+id/main_bar_guideline_card_top"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Record places visited" />
+
+
+        </com.headuck.app.gooutwithduck.views.MotionToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+</layout>

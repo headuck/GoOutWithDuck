@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+       <!-- <variable name="localeUtilCompanion"
+            type="gooutwithduckduck.utilities.LocaleUtil.Companion"/>-->
+        <import type="com.headuck.app.gooutwithduck.utilities.LocaleUtil" />
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="displayLang"
+            type="String"/>
+        <variable
+            name="notificationItem"
+            type="com.headuck.app.gooutwithduck.data.BookmarkUiModel.NotificationItem"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/card_bottom_margin"
+        android:layout_marginStart="@dimen/card_side_margin_main"
+        android:layout_marginEnd="@dimen/card_side_margin_main"
+        android:layout_marginBottom="@dimen/card_bottom_margin"
+        app:cardBackgroundColor="@color/app_color_light_green"
+        android:onClick="@{clickListener}"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardPreventCornerOverlap="false"
+        app:cardCornerRadius="@dimen/card_corner_radius">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_normal"
+            android:paddingBottom="@dimen/margin_normal">
+
+            <TextView
+                android:id="@+id/notification_item_last_update"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:text="@{@string/notification_last_update(LocaleUtil.getNotificationDateTime(displayLang, notificationItem.lastUpdateDate))}"
+                android:textSize="@dimen/text_size_normal"
+                android:textColor="@color/app_color_text_on_light"
+                android:gravity="start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Last update"/>
+
+            <TextView
+                android:id="@+id/notification_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginEnd="0dp"
+                android:text="@{Integer.toString(notificationItem.outstandingInbox)}"
+                android:textSize="@dimen/text_size_notification_num"
+                android:textColor="@color/app_color_text_on_light"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/notification_item_last_update"
+                tools:text="0"/>
+
+            <TextView
+                android:id="@+id/notification_count_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:text="@string/notification_count"
+                android:textSize="@dimen/text_size_larger"
+                android:textColor="@color/app_color_text_on_light"
+                app:layout_constraintStart_toEndOf="@id/notification_count"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@id/notification_count" />
+
+            <TextView
+                android:id="@+id/notification_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginTop="4dp"
+                android:text="@string/notification_hint"
+                android:textSize="@dimen/text_size_normal"
+                android:textColor="@color/app_color_text_on_light"
+                app:layout_constraintTop_toBottomOf="@id/notification_count_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</layout>

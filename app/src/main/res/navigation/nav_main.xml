@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    tools:ignore="InvalidNavigation">
+    <fragment
+        android:id="@+id/scanCodeFragment"
+        android:name="com.headuck.app.gooutwithduck.ScanCodeFragment"
+        android:label="fragment_scan_code"
+        tools:layout="@layout/fragment_scan_code" >
+        <action
+            android:id="@+id/action_scanCodeFragment_to_scanDoneFragment"
+            app:destination="@id/scanDoneFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false">
+            <argument
+                android:name="venueVisitInfo"
+                app:argType="com.headuck.app.gooutwithduck.data.VenueVisitInfo" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.headuck.app.gooutwithduck.HistoryListFragment"
+        android:label="HistoryListFragment"
+        tools:layout="@layout/fragment_history">
+
+        <action
+            android:id="@+id/action_historyFragment_to_venueDetailFragment"
+            app:destination="@id/venueDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.headuck.app.gooutwithduck.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_scanCodeFragment"
+            app:destination="@id/scanCodeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_scanDoneFragment"
+            app:destination="@id/scanDoneFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit">
+            <argument
+                android:name="venueVisitInfo"
+                app:argType="com.headuck.app.gooutwithduck.data.VenueVisitInfo" />
+        </action>
+        <action
+            android:id="@+id/action_mainFragment_to_venueDetailFragment"
+            app:destination="@id/venueDetailFragment">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/scanDoneFragment"
+        android:name="com.headuck.app.gooutwithduck.ScanDoneFragment"
+        android:label="ScanDoneFragment"
+        tools:layout="@layout/fragment_scan_done">
+        <argument
+            android:name="venueVisitInfo"
+            app:argType="com.headuck.app.gooutwithduck.data.VenueVisitInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/venueDetailFragment"
+        android:name="com.headuck.app.gooutwithduck.VenueDetailFragment"
+        android:label="VenueDetailFragment"
+        tools:layout="@layout/fragment_venue_detail">
+        <argument
+            android:name="visitHistoryId"
+            app:argType="integer" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+       <!-- <variable name="localeUtilCompanion"
+            type="gooutwithduckduck.utilities.LocaleUtil.Companion"/>-->
+        <import type="com.headuck.app.gooutwithduck.utilities.LocaleUtil" />
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="displayLang"
+            type="String"/>
+        <variable
+            name="visitHistory"
+            type="com.headuck.app.gooutwithduck.data.VisitHistoryUiModel.VisitHistoryItem"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/card_bottom_margin">
+
+    <com.headuck.app.gooutwithduck.views.MaskedCardView
+
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/history_item_foreground"
+        app:layout_constraintBottom_toBottomOf="@id/history_item_foreground"
+        android:layout_marginEnd="@dimen/card_side_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_alignParentEnd="true"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="false"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.CardSwipeBackground"
+        app:cardBackgroundColor="?attr/colorPrimary"
+        app:cardElevation="0dp">
+
+        <LinearLayout
+            android:id="@+id/history_item_background"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/card_corner_radius"
+            android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/history_item_action_bookmark"
+            android:layout_width="@dimen/swipe_button_size"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/history_item_image_action_bookmark"
+                    android:layout_width="@dimen/swipe_icon_size"
+                    android:layout_height="@dimen/swipe_icon_size"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_bookmark_level"
+                    app:tint="@color/app_color_gray_50" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/history_item_action_edit"
+            android:layout_width="@dimen/swipe_button_size"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/history_item_image_action_edit"
+                    android:layout_width="@dimen/swipe_icon_size"
+                    android:layout_height="@dimen/swipe_icon_size"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_edit_venue"
+                    app:tint="@color/app_color_gray_50" />
+            </LinearLayout>
+        </RelativeLayout>
+        </LinearLayout>
+    </com.headuck.app.gooutwithduck.views.MaskedCardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/history_item_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/card_side_margin"
+        android:layout_marginEnd="@dimen/card_side_margin"
+        android:onClick="@{clickListener}"
+        app:cardElevation="@dimen/card_elevation"
+        android:visibility="visible"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/history_item_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_normal"
+                    android:text="@{LocaleUtil.getVisitLocationName(displayLang, visitHistory.venueInfo)}"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:gravity="start"
+                    app:layout_constraintEnd_toStartOf="@id/history_check_in_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Venue 1"/>
+
+                <TextView
+                    android:id="@+id/history_item_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginBottom="@dimen/margin_normal"
+                    android:text="@{visitHistory.venueInfo.type}"
+                    android:textAppearance="?attr/textAppearanceListItemSecondary"
+                    android:gravity="start"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/history_item_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="Type"/>
+
+                <ImageView
+                    android:id="@+id/history_check_in_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    app:tint="?android:textColorSecondary"
+                    app:srcCompat="@drawable/ic_enter_venue"
+                    app:layout_constraintTop_toTopOf="@id/history_item_time"
+                    app:layout_constraintBottom_toBottomOf="@id/history_item_time"
+                    app:layout_constraintEnd_toStartOf="@id/history_item_time"/>
+
+                <TextView
+                    android:id="@+id/history_item_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_normal"
+
+                    android:text="@{LocaleUtil.getVisitLocationTime(displayLang, visitHistory)}"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="12:34"/>
+
+                <ImageView
+                    android:id="@+id/history_check_out_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    app:isGone="@{visitHistory.endDate == null}"
+                    app:tint="?android:textColorSecondary"
+                    app:srcCompat="@drawable/ic_exit_venue"
+                    app:layout_constraintTop_toTopOf="@id/history_item_time_out"
+                    app:layout_constraintBottom_toBottomOf="@id/history_item_time_out"
+                    app:layout_constraintEnd_toStartOf="@id/history_item_time_out"/>
+
+                <TextView
+                    android:id="@+id/history_item_time_out"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:text="@{LocaleUtil.getVisitLocationTimeEnd(displayLang, visitHistory)}"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/history_item_time"
+                    tools:text="12:36"/>
+
+                <ImageView
+                    android:id="@+id/history_check_out_auto_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    app:isGone="@{visitHistory.autoEndDate == null}"
+                    app:tint="?android:textColorSecondary"
+                    app:srcCompat="@drawable/ic_auto_time"
+                    app:layout_constraintTop_toTopOf="@id/history_item_time_out_auto"
+                    app:layout_constraintBottom_toBottomOf="@id/history_item_time_out_auto"
+                    app:layout_constraintEnd_toStartOf="@id/history_item_time_out_auto"/>
+
+                <TextView
+                    android:id="@+id/history_item_time_out_auto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:text="@{LocaleUtil.getVisitLocationTimeAutoCheckOut(displayLang, visitHistory)}"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/history_item_time"
+                    tools:text="12:38"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

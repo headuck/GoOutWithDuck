@@ -1,0 +1,26 @@
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<vector android:height="24dp" android:tint="#FFFFFF"
+    android:viewportHeight="24" android:viewportWidth="24"
+    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="@android:color/white"
+        android:fillType="evenOdd" android:pathData="M 7 2 C 6.0566785 1.9494192 5.6132024 3.3404506 6.4414062 3.828125 C 6.9099139 4.116185 7.4803743 3.9594339 8 4 C 7.9903243 5.7689402 8.0195839 7.5385041 7.984375 9.3066406 C 7.8668071 10.794533 6.492228 12.035562 5 12 L 5 14 L 8.6992188 14 L 3.3515625 19.833984 L 4.6835938 21.054688 L 20.408203 3.9042969 L 19.074219 2.6816406 L 16 6.0351562 L 16 4 C 16.627426 3.9561116 17.411294 4.1867151 17.828125 3.5585938 C 18.332885 2.8839263 17.667711 1.8666355 16.853516 2 L 7 2 z M 16.099609 9.734375 L 10.970703 15.328125 L 10.970703 21 L 11.970703 22 C 12.292647 21.645674 12.706264 21.329317 12.970703 20.951172 L 12.970703 14 L 19 14 L 19 12 C 17.639533 12.040931 16.438237 11.011744 16.099609 9.734375 z"/>
+</vector>
