@@ -1,0 +1,19 @@
+GoOutWithDuck is for recording visits in Hong Kong. It has the following features:
+* Open source. No privacy concerns.
+* Scans "LeaveHomeSafe" QR Code to record visits
+* Allows check in of multiple venues at the same time (e.g. restaurant inside shopping malls)
+* Allow saving of bookmark and pinning of bookmark for frequently visited venues
+* Allow viewing of visit history
+* Easy removal of wrong check-ins
+
+Work in progress
+* Edit and deletion of records
+* Auto leave
+* Manual entry of license no. of taxi and other public transports
+* Download confirmed case and issue notifications
+* Set retention period for records
+* Export of history to sharing (e.g. via Email) if needed
+
+Important Notice
+================
+This software is not in any way endorsed by nor affiliated with the Government of the HKSAR. It is not the official contact tracing app.  DO NOT use this software as a subsitute when there is a mandatory legal requirement to use the official tracing app.  The author takes no responsibility and legal liability for any misuse of this software.

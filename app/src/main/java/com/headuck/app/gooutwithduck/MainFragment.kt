@@ -32,6 +32,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.paging.map
@@ -166,6 +167,7 @@ class MainFragment : Fragment() {
 
         binding.fragmentMainAppBar.homeButtonTaxi.setOnClickListener {
             navigateToTaxiPage()
+            Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show()
         }
 
         // Set the touch - swipe target of bottom nav to this fragment
@@ -221,14 +223,14 @@ class MainFragment : Fragment() {
                                 viewLifecycleOwner.lifecycleScope.launch {
                                     if (!pinned) {
                                         if (viewModel.pinBookmark(id)) {
-                                            Toast.makeText(context, "Bookmark pinned", Toast.LENGTH_SHORT).show()
+                                            // Toast.makeText(context, "Bookmark pinned", Toast.LENGTH_SHORT).show()
                                         } else {
                                             Toast.makeText(context, "Bookmark pinned error", Toast.LENGTH_SHORT).show()
                                         }
 
                                     } else {
                                         if (viewModel.unpinBookmark(id)) {
-                                            Toast.makeText(context, "Bookmark unpinned", Toast.LENGTH_SHORT).show()
+                                            // Toast.makeText(context, "Bookmark unpinned", Toast.LENGTH_SHORT).show()
                                         } else {
                                             Toast.makeText(context, "Bookmark unpinned error", Toast.LENGTH_SHORT).show()
                                         }
@@ -302,7 +304,7 @@ class MainFragment : Fragment() {
 
     private fun enterVenue(visitHistoryId: Int) {
         val enterResult = viewModel.enterBookmarkVenue(visitHistoryId)
-        enterResult.observe(this@MainFragment, { it ->
+        enterResult.observe(this@MainFragment) { it ->
             it.onFailure { msg ->
                 Timber.d("Enter failure: $msg")
                 val msg1 = if (msg == MainViewModel.ALREADY_CHECKED_IN) {
@@ -318,12 +320,12 @@ class MainFragment : Fragment() {
                         VenueVisitInfo(it, LocaleUtil.getDisplayLang(requireActivity()))
                 )
             }
-        })
+        }
     }
 
     private fun leaveVenue(id: Int, venueInfo: VenueInfo) {
         viewModel.leaveVenueNow(id)
-                .observe(viewLifecycleOwner,  {result ->
+                .observe(viewLifecycleOwner)  {result ->
                     result.onFailure {
                         Snackbar.make(binding.root, it.localizedMessage?:"Leave Error", Snackbar.LENGTH_LONG)
                                 .setDuration(SNACK_DURATION)
@@ -346,7 +348,7 @@ class MainFragment : Fragment() {
                                 .show()
 
                     }
-                })
+                }
     }
 
     private fun subscribeUi(adapter: CheckInAdapter) {

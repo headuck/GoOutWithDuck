@@ -1,7 +1,7 @@
 GoOutWithDuck (For Hong Kong Users)
 ===================================
 
-An app to record your visit history using Government "LeaveHomeSafe" QR Codes.
+Record your visit history using Hong Kong Government "LeaveHomeSafe" QR Codes
 
 It has the following features:
 * Open source. No privacy concerns.
@@ -24,19 +24,19 @@ Important Notice
 This software is not in any way endorsed by nor affiliated with the Government of the HKSAR. It is not the official contact tracing app.  DO NOT use this software as a subsitute when there is a mandatory legal requirement to use the official tracing app.  The author takes no responsibility and legal liability for any misuse of this software.
 
 出 duck 嚟行（為香港用戶而設）
-=============================
+=========================
 
-利用政府 “安心出行” 二維碼，記錄您的到訪歷史。
+利用政府 “安心出行” 二維碼，記錄您的到訪歷史。（為香港用戶而設）
 
 它具有以下功能：
 * 開源程式。沒有隱私問題。
-* 掃描 “安心出行” 二維以記錄到訪歷史
+* 掃描 “安心出行” 二維碼以記錄到訪歷史
 * 允許同時進入多個場所（例如，商場內的餐廳）
 * 經常訪問的場所，可以設定及保存書籤，並可將常用書籤置頂
 * 允許查看訪問歷史記錄
 * 進入錯誤可即時清除
 
-正在進行中：
+正在開發：
 * 編輯和刪除記錄
 * 自動離開
 * 手動輸入的士和其他公共交通工具車牌

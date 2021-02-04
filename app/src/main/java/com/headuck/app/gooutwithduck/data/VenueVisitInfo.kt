@@ -21,6 +21,7 @@
 package com.headuck.app.gooutwithduck.data
 
 import android.os.Parcelable
+import com.headuck.app.gooutwithduck.utilities.LocaleUtil
 import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,7 +38,7 @@ data class VenueVisitInfo (
             visitHistory.id,
             visitHistory.venueInfo.type,
             visitHistory.venueInfo.licenseNo,
-            if (displayLang == "zh") visitHistory.venueInfo.nameZh else visitHistory.venueInfo.nameEn,
+            LocaleUtil.getVisitLocationName(displayLang, visitHistory.venueInfo),
             visitHistory.let {
                 val dateTimeFormat = SimpleDateFormat(
                         "yyyy-MM-dd HH:mm", Locale.ENGLISH

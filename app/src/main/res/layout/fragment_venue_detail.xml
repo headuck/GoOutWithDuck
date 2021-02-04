@@ -138,6 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/details_change"
+                        android:enabled="false"
                         />
                 </LinearLayout>
 
@@ -174,6 +175,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/details_change"
+                        android:enabled="false"
                         />
                 </LinearLayout>
 
