@@ -1,0 +1,1 @@
+Enable edit, add auto-checkout function
