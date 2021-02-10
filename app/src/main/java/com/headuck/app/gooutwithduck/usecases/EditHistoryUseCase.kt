@@ -20,14 +20,13 @@
 
 package com.headuck.app.gooutwithduck.usecases;
 
-
-
-import com.headuck.app.gooutwithduck.data.UserPreferencesRepository
 import com.headuck.app.gooutwithduck.data.VisitHistory;
 import com.headuck.app.gooutwithduck.data.VisitHistoryRepository;
 
 import com.github.michaelbull.result.Result
+import com.headuck.app.gooutwithduck.workers.ExitCheckWorkerUtil
 import kotlinx.coroutines.flow.Flow
+import java.util.Calendar
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -37,16 +36,29 @@ import javax.inject.Singleton;
  */
 @Singleton
 class EditHistoryUseCase @Inject constructor(private val visitHistoryRepository: VisitHistoryRepository,
-                                             private val userPreferencesRepository: UserPreferencesRepository) {
+                                             private val exitCheckWorkerUtil: ExitCheckWorkerUtil) {
 
     fun getVenueById(visitHistoryId: Int): Flow<Result<VisitHistory, Exception>> =
         visitHistoryRepository.getVisitHistoryByIdFlow(visitHistoryId)
 
-    suspend fun deleteVenue(visitHistoryId: Int) =
-        visitHistoryRepository.deleteVisitHistoryById(visitHistoryId)
+    suspend fun deleteVenue(visitHistoryId: Int, hasAutoEndDate: Boolean): Result<Int, Exception> {
+        if (hasAutoEndDate) {
+            exitCheckWorkerUtil.cancelExitSchedlue(visitHistoryId)
+        }
+        return visitHistoryRepository.deleteVisitHistoryById(visitHistoryId)
+    }
 
     suspend fun updateVenue(visitHistory: VisitHistory) {
+        if (visitHistory.autoEndDate != null) {
+            exitCheckWorkerUtil.setExitSchedule(visitHistory.id, visitHistory.autoEndDate)
+        } else {
+            exitCheckWorkerUtil.cancelExitSchedlue(visitHistory.id)
+        }
         visitHistoryRepository.updateVisitHistory(visitHistory)
+    }
+
+    suspend fun updateVenueTime(visitHistoryId: Int, timeVal: Calendar, isEntryTime: Boolean) {
+        visitHistoryRepository.updateVisitHistoryTime(visitHistoryId, timeVal, isEntryTime)
     }
 
 }

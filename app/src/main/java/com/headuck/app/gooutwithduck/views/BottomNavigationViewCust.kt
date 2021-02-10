@@ -27,7 +27,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import timber.log.Timber
 import kotlin.math.abs
 
 // Adopted from https://stackoverflow.com/questions/55068560/allow-bottomsheet-to-slide-up-after-threshold-is-reached-on-an-area-outside
@@ -78,13 +77,11 @@ class BottomNavigationViewCust : BottomNavigationView {
                             metaState
                     )
                     passThroughTarget?.apply {
-                        // Timber.d("down")
                         onTouchEvent(motionEvent) // sent event to proxyView
                     }
                 }
                 if (moving) {
                     passThroughTarget?.apply {
-                        // Timber.d("move")
                         onTouchEvent(event) // sent event to proxyView
                     }
                 }
@@ -94,15 +91,9 @@ class BottomNavigationViewCust : BottomNavigationView {
 
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                /* if (event.action == MotionEvent.ACTION_UP) {
-                    Timber.d("Bottom sheet action up");
-                } else {
-                    Timber.d("Bottom sheet action cancel");
-                } */
                 initialY = 0f
                 if (moving) {
                     passThroughTarget?.apply {
-                        Timber.d("cancel moving")
                         onTouchEvent(event) // sent event to proxyView
                     }
                     moving = false
@@ -114,7 +105,6 @@ class BottomNavigationViewCust : BottomNavigationView {
     }
 
     fun setTouchTarget(targetView: View?) {
-        Timber.d("Setting main target")
         if (moving && this.passThroughTarget != null) {
             val downTime = SystemClock.uptimeMillis()
             val eventTime = SystemClock.uptimeMillis() + 100
@@ -127,7 +117,6 @@ class BottomNavigationViewCust : BottomNavigationView {
                     0
             )
             passThroughTarget?.apply {
-                // Timber.d("down")
                 dispatchTouchEvent(motionEvent) // sent event to proxyView
             }
         }

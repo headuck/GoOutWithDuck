@@ -20,6 +20,7 @@
 
 package com.headuck.app.gooutwithduck
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -286,7 +287,7 @@ class MainFragment : Fragment() {
                             val item = checkInAdapter?.getCheckInItemFromPosition(position)
                             item?.apply {
                                 viewLifecycleOwner.lifecycleScope.launch {
-                                    val result = viewModel.deleteVenue(item.id)
+                                    val result = viewModel.deleteCheckInVenue(item.id, item.autoEndDate)
                                     result.onSuccess {
                                         if (it > 0) {
                                             Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
@@ -302,6 +303,7 @@ class MainFragment : Fragment() {
                 .setIgnoredViewTypes(CheckInAdapter.HEADER_ITEM)
     }
 
+    @SuppressLint("WrongConstant")
     private fun enterVenue(visitHistoryId: Int) {
         val enterResult = viewModel.enterBookmarkVenue(visitHistoryId)
         enterResult.observe(this@MainFragment) { it ->
@@ -323,6 +325,7 @@ class MainFragment : Fragment() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun leaveVenue(id: Int, venueInfo: VenueInfo) {
         viewModel.leaveVenueNow(id)
                 .observe(viewLifecycleOwner)  {result ->
@@ -369,6 +372,9 @@ class MainFragment : Fragment() {
                                 CheckInUiModel.CheckInItem(it)
                             }
             )
+            if (result.isEmpty()) {
+                bottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
         }
     }
 

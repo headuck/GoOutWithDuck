@@ -5,15 +5,13 @@ Record your visit history using Hong Kong Government "LeaveHomeSafe" QR Codes
 
 It has the following features:
 * Open source. No privacy concerns.
-* Scans "LeaveHomeSafe" QR Code to record visits
+* Scans "LeaveHomeSafe" QR Code to record visits. Supports auto checkout
 * Allows check in of multiple venues at the same time (e.g. restaurant inside shopping malls)
-* Allow saving of bookmark and pinning of bookmark for frequently visited venues
-* Allow viewing of visit history
+* Allows saving of bookmark and pinning of bookmark for frequently visited venues
+* Allows viewing / editing / deleting of visit history
 * Easy removal of wrong check-ins
 
 Work in progress
-* Edit and deletion of records
-* Auto leave
 * Manual entry of license no. of taxi and other public transports
 * Download confirmed case and issue notifications
 * Set retention period for records
@@ -30,15 +28,13 @@ This software is not in any way endorsed by nor affiliated with the Government o
 
 它具有以下功能：
 * 開源程式。沒有隱私問題。
-* 掃描 “安心出行” 二維碼以記錄到訪歷史
+* 掃描 “安心出行” 二維碼以記錄到訪歷史，支援自動離開
 * 允許同時進入多個場所（例如，商場內的餐廳）
 * 經常訪問的場所，可以設定及保存書籤，並可將常用書籤置頂
-* 允許查看訪問歷史記錄
+* 允許查看/編輯/刪除訪問歷史記錄
 * 進入錯誤可即時清除
 
 正在開發：
-* 編輯和刪除記錄
-* 自動離開
 * 手動輸入的士和其他公共交通工具車牌
 * 下載已確診個案及發出通知
 * 設置記錄保留期限

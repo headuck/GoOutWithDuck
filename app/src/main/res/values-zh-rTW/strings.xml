@@ -32,6 +32,8 @@
     <string name="title_main_record_text">記錄到訪地點</string>
     <string name="title_history">到訪紀錄</string>
 
+    <string name="menu_delete_venue">删除</string>
+
     <string name="notification_last_update">最近於 %s 更新</string>
     <string name="notification_count">次未讀風險通知</string>
     <string name="notification_hint">跳至詳細訊息</string>
@@ -88,6 +90,7 @@
     <string name="details_entry_time">進入時間</string>
     <string name="details_exit_time">離開時間</string>
     <string name="details_venue_name">地點</string>
+    <string name="details_venue_license_no">車牌</string>
     <string name="details_venue_type">種類</string>
     <string name="details_change">更改</string>
 

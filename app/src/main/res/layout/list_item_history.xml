@@ -23,8 +23,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-       <!-- <variable name="localeUtilCompanion"
-            type="gooutwithduckduck.utilities.LocaleUtil.Companion"/>-->
         <import type="com.headuck.app.gooutwithduck.utilities.LocaleUtil" />
         <variable
             name="clickListener"

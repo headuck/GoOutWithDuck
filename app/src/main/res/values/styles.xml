@@ -27,7 +27,7 @@
     </style>
     <!-- To see how these attributes are used, please visit https://material.io/develop/android/theming/color/ -->
     <style name="Base.Theme.GoOutWithDuck" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/app_color_green</item>
+        <item name="colorPrimary">@color/app_theme_primary</item>
         <item name="colorOnPrimary">@color/app_color_yellow</item>
         <item name="colorPrimaryDark">@color/app_color_dark_green</item>
         <item name="colorOnSurface">@color/app_color_black</item>
@@ -56,6 +56,24 @@
     <style name="TextAppearance.GoOutWithDuck.Text" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="fontFamily">@font/rubik_regular</item>
+    </style>
+
+    <style name="TextAppearance.GoOutWithDuck.Detail.Text.Label" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/app_color_label_text</item>
+        <item name="android:textSize">@dimen/text_size_larger</item>
+        <item name="fontFamily">@font/rubik_regular</item>
+    </style>
+
+    <style name="TextAppearance.GoOutWithDuck.Detail.Text.Content" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/text_size_larger</item>
+        <item name="fontFamily">@font/rubik_regular</item>
+    </style>
+
+    <style name="TextAppearance.GoOutWithDuck.Detail.Text.Time" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/text_size_venue_detail_time</item>
         <item name="fontFamily">@font/rubik_regular</item>
     </style>
 

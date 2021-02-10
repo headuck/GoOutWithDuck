@@ -42,7 +42,7 @@ import javax.inject.Singleton;
  */
 @Singleton
 class GetHistoryUseCase @Inject constructor(private val visitHistoryRepository: VisitHistoryRepository,
-    private val userPreferencesRepository: UserPreferencesRepository) {
+                                            private val userPreferencesRepository: UserPreferencesRepository) {
 
     fun getHistoryList(filter: String):  Flow<PagingData<VisitHistory>> =
 
@@ -74,8 +74,5 @@ class GetHistoryUseCase @Inject constructor(private val visitHistoryRepository: 
 
     suspend fun createBookmark(venueInfo: VenueInfo) = visitHistoryRepository.insertBookmark(venueInfo)
     suspend fun deleteBookmark(venueInfo: VenueInfo) = visitHistoryRepository.deleteBookmark(venueInfo)
-
-    suspend fun deleteVenue(visitHistoryId: Int) = visitHistoryRepository.deleteVisitHistoryById(visitHistoryId)
-
 
 }

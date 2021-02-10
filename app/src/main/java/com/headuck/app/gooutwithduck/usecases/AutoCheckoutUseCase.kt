@@ -25,6 +25,7 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.headuck.app.gooutwithduck.data.UserPreferencesRepository
 import com.headuck.app.gooutwithduck.data.VisitHistoryRepository
+import com.headuck.app.gooutwithduck.workers.ExitCheckWorkerUtil
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
@@ -35,11 +36,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Logic to handle scanning of QR code
+ * Logic to handle auto checkout
  */
 @Singleton
 class AutoCheckoutUseCase @Inject constructor(private val visitHistoryRepository: VisitHistoryRepository,
-                                              private val userPreferencesRepository: UserPreferencesRepository) {
+                                              private val userPreferencesRepository: UserPreferencesRepository,
+                                              private val exitCheckWorkerUtil: ExitCheckWorkerUtil) {
 
     fun autoCheckoutSetting():  Flow<Pair<Boolean, Int>> = flow {
         userPreferencesRepository.userPreferencesFlow
@@ -59,6 +61,12 @@ class AutoCheckoutUseCase @Inject constructor(private val visitHistoryRepository
                         calculateEndTime(it.startDate, durationSecond)
                     } else {
                         null
+                    }
+                    if (autoEndDate == null) {
+                        exitCheckWorkerUtil.cancelExitSchedlue(it.id)
+                    } else {
+                        // This would replace previous settings
+                        exitCheckWorkerUtil.setExitSchedule(it.id, autoEndDate)
                     }
                     visitHistoryRepository.setAutoEnd(it.id, autoEndDate)
                 }

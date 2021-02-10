@@ -18,6 +18,11 @@
  *
  */
 
+/*
+ * Modified from
+ * https://github.com/velmurugan35/Android-Example/tree/master/RecyclerviewWithSwipeMenuAndroidJava
+ * Licensed under Apache License 2.0 by velmurugan35
+ */
 package com.headuck.app.gooutwithduck.views;
 
 import android.animation.Animator;

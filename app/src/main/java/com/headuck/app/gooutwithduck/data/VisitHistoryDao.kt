@@ -79,6 +79,9 @@ abstract class VisitHistoryDao {
     @Delete
     abstract suspend fun deleteVisitHistory(visitHistory: VisitHistory)
 
+    @Query("UPDATE visit_history SET start_date = :startDate WHERE id = :id")
+    abstract suspend fun updateVisitHistoryStartDate(id: Int, startDate: Calendar)
+
     @Query("UPDATE visit_history SET end_date = :endDate, auto_end_date = NULL WHERE id = :id")
     abstract suspend fun updateVisitHistoryEndDate(id: Int, endDate: Calendar)
 

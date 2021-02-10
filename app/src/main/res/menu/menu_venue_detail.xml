@@ -19,7 +19,12 @@
   ~
   -->
 
-<resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <integer name="text_size_main_title">30</integer>
-</resources>
+    <item android:id="@+id/item_delete_venue"
+        android:icon="@drawable/ic_action_delete"
+        app:showAsAction="always"
+        android:title="@string/menu_delete_venue"/>
+
+</menu>

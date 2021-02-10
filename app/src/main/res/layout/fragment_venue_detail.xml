@@ -24,9 +24,19 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View"/>
-        <variable name="venueVisitInfo" type="com.headuck.app.gooutwithduck.data.VenueVisitInfo" />
-        <variable name="callback"
-            type="com.headuck.app.gooutwithduck.ScanDoneFragment.Callback" />
+        <import type="com.headuck.app.gooutwithduck.utilities.LocaleUtil" />
+        <variable
+            name="visitHistory"
+            type="com.headuck.app.gooutwithduck.data.VisitHistory"
+        />
+        <variable
+            name="displayLang"
+            type="String"
+        />
+        <variable
+            name="callback"
+            type="com.headuck.app.gooutwithduck.VenueDetailFragment.Callback"
+        />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,23 +67,42 @@
             app:layout_constraintTop_toBottomOf="@id/venue_detail_app_bar_layout"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="@dimen/margin_normal"
-            android:stretchColumns="1">
+            android:visibility="@{visitHistory == null ? View.GONE : View.VISIBLE}"
+            android:stretchColumns="1"
+            android:shrinkColumns="1">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="@{visitHistory.venueInfo.type == `TAXI`? View.GONE : View.VISIBLE}"
                 android:layout_marginBottom="@dimen/margin_normal">
                 <com.google.android.material.textview.MaterialTextView
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    android:textSize="@dimen/text_size_larger"
+                    android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Label"
                     android:layout_marginEnd="@dimen/margin_normal"
                     android:text="@string/details_venue_name"/>
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/venue_detail_venue_name"
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    android:textSize="@dimen/text_size_larger"
+                    android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Content"
                     android:layout_width="0dp"
+                    android:text="@{LocaleUtil.getVisitLocationName(displayLang, visitHistory.venueInfo)}"
                     tools:text="Venue Name"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{visitHistory.venueInfo.type == `TAXI`? View.VISIBLE : View.GONE}"
+                android:layout_marginBottom="@dimen/margin_normal">
+                <com.google.android.material.textview.MaterialTextView
+                    android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Label"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:text="@string/details_venue_license_no"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/venue_detail_license_no"
+                    android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Content"
+                    android:layout_width="0dp"
+                    android:text="@{LocaleUtil.getVisitLocationName(displayLang, visitHistory.venueInfo)}"
+                    tools:text="License No"/>
             </TableRow>
 
             <TableRow
@@ -81,14 +110,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/margin_normal">
                 <com.google.android.material.textview.MaterialTextView
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    android:textSize="@dimen/text_size_larger"
+                    android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Label"
                     android:layout_marginEnd="@dimen/margin_normal"
                     android:text="@string/details_venue_type"/>
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/venue_detail_venue_type"
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    android:textSize="@dimen/text_size_larger"
+                    android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Content"
+                    android:text="@{visitHistory.venueInfo.type}"
                     tools:text="Venue Type"/>
             </TableRow>
 
@@ -97,14 +125,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/margin_normal">
                 <com.google.android.material.textview.MaterialTextView
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    android:textSize="@dimen/text_size_larger"
+                    android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Label"
                     android:layout_marginEnd="@dimen/margin_normal"
                     android:text="@string/details_visit_date"/>
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/venue_detail_visit_date"
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    android:textSize="@dimen/text_size_larger"
+                    android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Content"
+                    android:text="@{LocaleUtil.getVisitLocationDate(displayLang, visitHistory.startDate)}"
                     tools:text="2021-01-20"/>
             </TableRow>
 
@@ -113,8 +140,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/margin_normal">
                 <com.google.android.material.textview.MaterialTextView
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    android:textSize="@dimen/text_size_larger"
+                    android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Label"
                     android:layout_marginEnd="@dimen/margin_normal"
                     android:layout_gravity="center_vertical"
                     android:text="@string/details_entry_time"/>
@@ -125,21 +151,21 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/venue_detail_entry_time"
-                        android:textAppearance="?attr/textAppearanceBody1"
-                        android:textSize="@dimen/text_size_venue_detail_time"
+                        android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Time"
                         android:layout_width="0dp"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
+                        android:text="@{LocaleUtil.getVisitLocationTime(displayLang, visitHistory.startDate)}"
                         tools:text="2:30"
                         tools:ignore="RtlCompat" />
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/venue_detail_entry_time_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/details_change"
-                        android:enabled="false"
-                        />
+                        android:onClick="@{(v) -> callback.onTimePickerClick(v)}"
+                        android:text="@string/details_change"/>
                 </LinearLayout>
 
             </TableRow>
@@ -148,10 +174,10 @@
                 android:id="@+id/venue_detail_exit_time_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="@{(visitHistory.endDate != null) ? View.VISIBLE : View.GONE}"
                 android:layout_marginBottom="@dimen/margin_normal">
                 <com.google.android.material.textview.MaterialTextView
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    android:textSize="@dimen/text_size_larger"
+                    android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Label"
                     android:layout_marginEnd="@dimen/margin_normal"
                     android:layout_gravity="center_vertical"
                     android:text="@string/details_exit_time"/>
@@ -162,21 +188,21 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/venue_detail_exit_time"
-                        android:textAppearance="?attr/textAppearanceBody1"
-                        android:textSize="@dimen/text_size_venue_detail_time"
+                        android:textAppearance="@style/TextAppearance.GoOutWithDuck.Detail.Text.Time"
                         android:layout_width="0dp"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
+                        android:text="@{LocaleUtil.getVisitLocationTime(displayLang, visitHistory.endDate)}"
                         tools:text="3:30"
                         tools:ignore="RtlCompat" />
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/venue_detail_exit_time_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/details_change"
-                        android:enabled="false"
-                        />
+                        android:onClick="@{(v) -> callback.onTimePickerClick(v)}"
+                        android:text="@string/details_change"/>
                 </LinearLayout>
 
             </TableRow>

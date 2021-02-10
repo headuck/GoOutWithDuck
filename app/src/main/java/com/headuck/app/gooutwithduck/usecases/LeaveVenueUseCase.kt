@@ -24,6 +24,7 @@ package com.headuck.app.gooutwithduck.usecases;
 import com.github.michaelbull.result.Result
 
 import com.headuck.app.gooutwithduck.data.VisitHistoryRepository;
+import com.headuck.app.gooutwithduck.workers.ExitCheckWorkerUtil
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -34,10 +35,11 @@ import java.util.*
  * Logic to leave venue
  */
 @Singleton
-class LeaveVenueUseCase @Inject constructor(private val visitHistoryRepository: VisitHistoryRepository) {
+class LeaveVenueUseCase @Inject constructor(private val visitHistoryRepository: VisitHistoryRepository,
+                                            private val exitCheckWorkerUtil: ExitCheckWorkerUtil) {
 
-    suspend fun leaveVenue(visitHistoryId: Int, time: Calendar):Result<Boolean, Exception> =
-        visitHistoryRepository.leaveVenue(visitHistoryId, time)
-
-
+    suspend fun leaveVenue(visitHistoryId: Int, time: Calendar):Result<Boolean, Exception> {
+        exitCheckWorkerUtil.cancelExitSchedlue(visitHistoryId)
+        return visitHistoryRepository.leaveVenue(visitHistoryId, time)
+    }
 }

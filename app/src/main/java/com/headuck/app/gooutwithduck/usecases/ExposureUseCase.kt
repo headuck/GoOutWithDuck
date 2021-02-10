@@ -25,8 +25,11 @@ import com.github.michaelbull.result.*
 
 import com.headuck.app.gooutwithduck.data.DownloadCaseMatchResult
 import com.headuck.app.gooutwithduck.data.DownloadCaseRepository
+import com.headuck.app.gooutwithduck.data.UserPreferencesRepository
 
 import com.headuck.app.gooutwithduck.utilities.toDateStart
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.firstOrNull
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -37,26 +40,52 @@ import java.util.*
  * Logic to handle scanning of QR code
  */
 @Singleton
-class ExposureUseCase @Inject constructor(private val downloadCaseRepository: DownloadCaseRepository) {
+class ExposureUseCase @Inject constructor(private val downloadCaseRepository: DownloadCaseRepository,
+                                        private val userPreferencesRepository: UserPreferencesRepository) {
+
+    /**
+     * Return default value if input value is 0 or null
+     * @param defaultVal default value
+     * @param value input value
+     * @return value
+     */
+    private fun defaultOr(defaultVal: Int, value: Int?): Int {
+        if (value == null) {
+            return defaultVal
+        }
+        else {
+            if (value == 0) return defaultVal
+            return value
+        }
+    }
 
     suspend fun exposureCheck() : Boolean {
+        val preference = userPreferencesRepository.userPreferencesFlow.firstOrNull()
+        val checkExposureDays = defaultOr(DEFAULT_EXPOSURE_CHECK_DAYS, preference?.checkExposureDays)
+
         val visitExposureList = downloadCaseRepository.checkExposure(since =
             Calendar.getInstance().apply {
                 toDateStart(this)
             }.apply {
-                add(Calendar.DAY_OF_YEAR, -14)
+                add(Calendar.DAY_OF_YEAR, -checkExposureDays)
             }
         ).unwrap()
 
         val bookmarkExposureList = downloadCaseRepository.checkBookmarkMatch().unwrap()
 
+        val directOverlapDuration = defaultOr(OVERLAP_DURATION, preference?.directOverlapDuration).toLong()
+        val indirectVehicleDuration : Long = defaultOr(INDIRECT_WITHIN_VEHICLE_DAYS, preference?.indirectVehicleDays) * 24*3600*1000L
+
         return (visitExposureList.isNotEmpty()).also {
             if (it) {
+                val checkContactParam = CheckContactParam(directOverlapDuration, indirectVehicleDuration)
                 //Timber.d("Exposure %s", visitExposureList.toString())
                 for (ex in visitExposureList) {
                     // Check exposure
-                    val contactResult = checkContact(ex)
+                    val contactResult = checkContact(ex, checkContactParam)
                     Timber.d("Contact result %s", contactResult.toString())
+                    // Write results
+
                 }
             }
         }
@@ -67,12 +96,13 @@ class ExposureUseCase @Inject constructor(private val downloadCaseRepository: Do
         DIRECT, INDIRECT, NONE
     }
 
+    data class CheckContactParam(val directOverlapDuration: Long, val indirectVehicleDuration: Long)
     data class CheckContactResult(val contactType: ContactType, val diff: Long)
 
-    private fun checkContact(ex: DownloadCaseMatchResult): CheckContactResult {
+    private fun checkContact(ex: DownloadCaseMatchResult, param: CheckContactParam): CheckContactResult {
         // config
-        val indirectWithin = if (ex.type == "TAXI") INDIRECT_WITHIN_TAXI else -1
-        val overlapDuration = OVERLAP_DURATION
+        val indirectWithin = if (ex.type == "TAXI") param.indirectVehicleDuration else -1
+
         val visitEndDate = ex.visitEndDate ?: Calendar.getInstance()
 
         if (ex.downloadEndDate <= ex.visitStartDate || visitEndDate <= ex.downloadStartDate) {
@@ -99,7 +129,7 @@ class ExposureUseCase @Inject constructor(private val downloadCaseRepository: Do
             }
         }
         // Direct contact
-        if (overlap > overlapDuration) {
+        if (overlap > param.directOverlapDuration) {
             return CheckContactResult(ContactType.DIRECT, overlap)
         }
 
@@ -114,7 +144,8 @@ class ExposureUseCase @Inject constructor(private val downloadCaseRepository: Do
     private fun diffCal(from: Calendar, to: Calendar): Long = to.timeInMillis - from.timeInMillis
 
     companion object {
-        const val INDIRECT_WITHIN_TAXI = 24*3600*1000
+        const val DEFAULT_EXPOSURE_CHECK_DAYS = 14
+        const val INDIRECT_WITHIN_VEHICLE_DAYS = 1
         const val OVERLAP_DURATION = 60*1000
     }
 

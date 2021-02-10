@@ -17,5 +17,7 @@
  * along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 include ':app'
+include ':snap-time-picker'
+
+project(':snap-time-picker').projectDir = new File(rootDir, 'SnapTimePicker/snap-time-picker/')

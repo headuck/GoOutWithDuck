@@ -124,18 +124,22 @@ class LocaleUtil {
                 } ?: ""
 
         @JvmStatic
-        fun getVisitLocationDate(displayLang: String, date: Calendar): String =
-            when (displayLang) {
-                "zh" -> dateFormat.format(date.time)
-                else -> dateFormat.format(date.time)
-            }
+        fun getVisitLocationDate(displayLang: String, date: Calendar?): String =
+                date?.let {
+                    when (displayLang) {
+                        "zh" -> dateFormat.format(it.time)
+                        else -> dateFormat.format(it.time)
+                    }
+                } ?: ""
 
         @JvmStatic
-        fun getVisitLocationTime(displayLang: String, date: Calendar): String =
-            when (displayLang) {
-                "zh" -> timeFormat.format(date.time)
-                else -> timeFormat.format(date.time)
-            }
+        fun getVisitLocationTime(displayLang: String, date: Calendar?): String =
+                date?.let {
+                    when (displayLang) {
+                        "zh" -> timeFormat.format(it.time)
+                        else -> timeFormat.format(it.time)
+                    }
+                } ?: ""
 
     }
 }

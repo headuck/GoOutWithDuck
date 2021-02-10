@@ -34,6 +34,9 @@
     <color name="app_color_scan_bg">#000000</color>
     <color name="app_color_ripple">#40ffffff</color>
     <color name="app_color_text_on_light">#c0000000</color>
+    <color name="app_color_label_text">#80000000</color>
 
+    <color name="app_theme_primary">@color/app_color_green</color>
     <color name="ic_launcher_background">@color/app_color_green</color>
+
 </resources>

@@ -26,6 +26,7 @@ import androidx.paging.PagingData
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.headuck.app.gooutwithduck.BuildConfig
 import com.headuck.app.gooutwithduck.utilities.CITIZEN_CHECK_IN
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -98,6 +99,9 @@ class VisitHistoryRepository @Inject constructor(private val visitHistoryDao: Vi
      */
     suspend fun insertVisitHistory(visitHistory: VisitHistory) = try {
         Timber.d("Thread ${Thread.currentThread().name}")
+        if (BuildConfig.DEBUG && visitHistory.autoEndDate != null) {
+            error("Auto End date should not be set initially") // Or should call WorkManager to schedule
+        }
         val venueCheckIn = visitHistoryDao.getCheckInVisitHistoryListForVenue(venueId = visitHistory.venueInfo.venueId, type = visitHistory.venueInfo.type)
         if (venueCheckIn.isEmpty()) {
             Ok(visitHistoryDao.insertVisitHistory(visitHistory))
@@ -184,6 +188,16 @@ class VisitHistoryRepository @Inject constructor(private val visitHistoryDao: Vi
 
     suspend fun updateVisitHistory(visitHistory: VisitHistory) = try {
         Ok(visitHistoryDao.updateVisitHistory(visitHistory))
+    } catch (e: Exception) {
+        Err(e)
+    }
+
+    suspend fun updateVisitHistoryTime(visitHistoryId: Int, timeVal: Calendar, isEntryTime: Boolean) = try {
+        if (isEntryTime) {
+            Ok(visitHistoryDao.updateVisitHistoryStartDate(visitHistoryId, timeVal))
+        } else {
+            Ok(visitHistoryDao.updateVisitHistoryEndDate(visitHistoryId, timeVal))
+        }
     } catch (e: Exception) {
         Err(e)
     }

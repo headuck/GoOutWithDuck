@@ -36,6 +36,7 @@ import com.headuck.app.gooutwithduck.MainFragment
 import com.headuck.app.gooutwithduck.data.VenueInfo
 import com.headuck.app.gooutwithduck.data.VisitHistory
 import com.headuck.app.gooutwithduck.usecases.BookmarkUseCase
+import com.headuck.app.gooutwithduck.usecases.EditHistoryUseCase
 import com.headuck.app.gooutwithduck.usecases.GetHistoryUseCase
 import com.headuck.app.gooutwithduck.usecases.InboxUseCase
 import com.headuck.app.gooutwithduck.usecases.LeaveVenueUseCase
@@ -55,6 +56,7 @@ import java.util.*
 class MainViewModel @ViewModelInject internal constructor(
         applicationCtx: Application,
         private val getHistoryUseCase: GetHistoryUseCase,
+        private val editHistoryUseCase: EditHistoryUseCase,
         private val leaveVenueUseCase: LeaveVenueUseCase,
         private val bookmarkUseCase: BookmarkUseCase,
         private val inboxUseCase: InboxUseCase,
@@ -125,8 +127,8 @@ class MainViewModel @ViewModelInject internal constructor(
     suspend fun deleteBookmark(venueInfo: VenueInfo) =
             getHistoryUseCase.deleteBookmark(venueInfo)
 
-    suspend fun deleteVenue(visitHistoryId: Int) =
-            getHistoryUseCase.deleteVenue(visitHistoryId)
+    suspend fun deleteCheckInVenue(visitHistoryId: Int, autoEndDate: Calendar?) =
+            editHistoryUseCase.deleteVenue(visitHistoryId, autoEndDate != null)
 
     companion object {
         const val ALREADY_CHECKED_IN = BookmarkUseCase.ALREADY_CHECKED_IN

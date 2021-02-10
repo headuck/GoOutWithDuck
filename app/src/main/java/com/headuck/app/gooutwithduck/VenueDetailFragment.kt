@@ -21,12 +21,16 @@
 package com.headuck.app.gooutwithduck
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.akexorcist.snaptimepicker.SnapTimePickerDialog
+import com.akexorcist.snaptimepicker.TimeValue
+import com.akexorcist.snaptimepicker.extension.SnapTimePickerUtil
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
@@ -36,12 +40,20 @@ import com.headuck.app.gooutwithduck.utilities.navigateUpSafe
 import com.headuck.app.gooutwithduck.utilities.setBackPressHandler
 import com.headuck.app.gooutwithduck.viewmodels.VenueDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.util.Calendar
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class VenueDetailFragment : Fragment() {
 
     private val args: VenueDetailFragmentArgs by navArgs()
+
+    interface Callback {
+        fun onTimePickerClick(view: View)
+    }
 
     @Inject
     lateinit var venueDetailViewModelFactory: VenueDetailViewModel.AssistedFactory
@@ -62,29 +74,82 @@ class VenueDetailFragment : Fragment() {
             navigateUpSafe()
         }
         setBackPressHandler()
+        context?.let { context ->
+            val lang = LocaleUtil.getDisplayLang(context)
+            binding.displayLang = lang
+        }
+        binding.callback = object: Callback {
+            override fun onTimePickerClick(view: View) {
+                if (view.id == R.id.venue_detail_entry_time_button) {
+                    binding.visitHistory?.startDate?.apply {
+                        showTimePickerDialog(this, true)
+                    }
+                } else if (view.id == R.id.venue_detail_exit_time_button) {
+                    binding.visitHistory?.endDate?.apply {
+                        showTimePickerDialog(this, false)
+                    }
+                } else {
+                    Timber.w("View Not found")
+                }
+            }
+
+        }
         viewModel.getVenue().observe(
                 viewLifecycleOwner,
                 { result ->
-                        result.onSuccess {
-                            context?.let { context ->
-                                val lang = LocaleUtil.getDisplayLang(context)
-                                binding.venueDetailVenueName.text = LocaleUtil.getVisitLocationName(lang, it.venueInfo)
-                                binding.venueDetailVenueType.text = it.venueInfo.type
-                                binding.venueDetailVisitDate.text = LocaleUtil.getVisitLocationDate(lang, it.startDate)
-                                binding.venueDetailEntryTime.text = LocaleUtil.getVisitLocationTime(lang, it.startDate)
-                                binding.venueDetailExitTimeRow.visibility = if (it.endDate != null) {View.VISIBLE} else {View.GONE}
-                                it.endDate?.apply {
-                                    binding.venueDetailExitTime.text = LocaleUtil.getVisitLocationTime(lang, it.endDate)
-                                }
-                            }
-                        }.onFailure {
-                            Snackbar.make(binding.root, it.message.toString(), Snackbar.LENGTH_LONG)
-                                    .show()
-                        }
+                    result.onSuccess {
+                        binding.visitHistory = it
+                    }.onFailure {
+                        Snackbar.make(binding.root, it.message.toString(), Snackbar.LENGTH_LONG)
+                                .show()
+                    }
 
                 }
         )
+
+        SnapTimePickerUtil.observe(this) { selectedHour: Int, selectedMinute: Int ->
+            onTimePicked(selectedHour, selectedMinute)
+        }
+
+        binding.venueDetailToolbar.inflateMenu(R.menu.menu_venue_detail)
+        binding.venueDetailToolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.item_delete_venue -> {
+                    binding.visitHistory?.let { visitHistory ->
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            viewModel.deleteVenue(visitHistory.id, visitHistory.autoEndDate)
+                            navigateUpSafe()
+                        }
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
         return binding.root
+    }
+
+
+    private fun showTimePickerDialog(time: Calendar, isEntryTime: Boolean) {
+        SnapTimePickerDialog.Builder().apply {
+            setPreselectedTime(TimeValue(time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE)))
+            setThemeColor(R.color.app_theme_primary)
+            setTitle(if (isEntryTime) R.string.details_entry_time else R.string.details_exit_time)
+            useViewModel()
+        }.build().show(childFragmentManager, SnapTimePickerDialog.TAG)
+        viewModel.lastDialog = if (isEntryTime) {
+            VenueDetailViewModel.ENTRY_TIME
+        } else {
+            VenueDetailViewModel.EXIT_TIME
+        }
+    }
+
+    private fun onTimePicked(hour: Int, minute: Int) {
+        binding.visitHistory?.let { visitHistory ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.changeTime(visitHistory, hour, minute)
+            }
+        }
     }
 
 

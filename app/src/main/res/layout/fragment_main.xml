@@ -25,10 +25,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--<variable
-            name="showFab"
-            type="boolean" />-->
-        <!--<import type="gooutwithduckduck.data.Plant"/>-->
         <import type="androidx.lifecycle.LiveData"/>
         <variable
             name="viewModel"
@@ -36,9 +32,6 @@
         <variable
             name="hideFab"
             type="LiveData&lt;Boolean&gt;" />
-        <!--<variable
-            name="callback"
-            type="gooutwithduckduck.MainFragment.Callback" />-->
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -75,7 +68,7 @@
             app:elevation="@dimen/fab_elevation"
             app:layout_anchor="@+id/fragment_main_bottom_sheet"
             app:layout_anchorGravity="top|end"
-            app:layout_behavior=".views.FabManualHideBehavior"
+            app:layout_behavior="com.headuck.app.gooutwithduck.views.FabManualHideBehavior"
             android:clickable="true"
             android:focusable="true"
             app:isFabGone="@{hideFab}"/>

@@ -146,17 +146,6 @@ class HistoryAdapter(private val viewModel: HistoryListViewModel, recyclerTouchL
             }
         }
 
-        /*private fun navigateToPlant(
-            plant: Plant,
-            view: View
-        ) {
-            val direction =
-                HomeViewPagerFragmentDirections.actionViewPagerFragmentToPlantDetailFragment(
-                    plant.plantId
-                )
-            view.findNavController().navigate(direction)
-        }
-        */
         fun bind(item: VisitHistoryUiModel.VisitHistoryItem?) {
             binding.apply {
                 visitHistory = item ?: VisitHistoryUiModel.VisitHistoryItem(

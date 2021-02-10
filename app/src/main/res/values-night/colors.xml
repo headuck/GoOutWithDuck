@@ -20,6 +20,6 @@
   -->
 
 <resources>
-
-    <integer name="text_size_main_title">30</integer>
+    <color name="app_color_label_text">#80ffffff</color>
+    <color name="app_theme_primary">@color/app_color_dark_green</color>
 </resources>

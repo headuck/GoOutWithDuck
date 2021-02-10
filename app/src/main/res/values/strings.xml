@@ -36,6 +36,8 @@
     <string name="title_main_record_text">Record your visits</string>
     <string name="title_history">Visit Records</string>
 
+    <string name="menu_delete_venue">Delete</string>
+
     <string name="notification_last_update">Last updated at %s</string>
     <string name="notification_count">unread notification(s)</string>
     <string name="notification_hint">More details</string>
@@ -59,7 +61,7 @@
     <string name="home_venue1_title">Input</string>
     <string name="home_venue1_desc">Input visit details</string>
 
-    <string name="menu_filter_by_type" translation_description="The label for the menu item to filter the displayed plants by grow zone.">By venue type</string>
+    <string name="menu_filter_by_type">By venue type</string>
 
     <string name="leave_success_message">Left %2$s at %1$s</string>
     <string name="leave_success_edit_action">EDIT</string>
@@ -87,6 +89,7 @@
     <string name="details_entry_time">Entry time</string>
     <string name="details_exit_time">Exit time</string>
     <string name="details_venue_name">Venue</string>
+    <string name="details_venue_license_no">License No</string>
     <string name="details_venue_type">Type</string>
     <string name="details_change">Change</string>
 
