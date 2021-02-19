@@ -21,6 +21,20 @@ Important Notice
 ================
 This software is not in any way endorsed by nor affiliated with the Government of the HKSAR. It is not the official contact tracing app.  DO NOT use this software as a subsitute when there is a mandatory legal requirement to use the official tracing app.  The author takes no responsibility and legal liability for any misuse of this software.
 
+Releases
+========
+
+[<img src=https://img.shields.io/f-droid/v/com.headuck.app.gooutwithduck.svg>](
+https://img.shields.io/f-droid/v/com.headuck.app.gooutwithduck.svg)
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" 
+      height="75"
+      alt="Get it on F-Droid">](https://f-droid.org/en/packages/com.headuck.app.gooutwithduck)
+
+F-Droid repo
+
+[<img src=https://user-images.githubusercontent.com/79254904/108467911-e5d28b00-72c0-11eb-9722-968168aa4b3c.png>](https://repo.headuck.com/fdroid/repo?fingerprint=A0D3386F3BFE7AEA2DE0FE52CF6B550FFE4CB48320EAE35775418C2024272B58)
+
 出 duck 嚟行（為香港用戶而設）
 =========================
 
@@ -43,6 +57,19 @@ This software is not in any way endorsed by nor affiliated with the Government o
 重要通知
 ========
 本軟件未有以任何方式得到香港特別行政區政府的認可，與政府沒有任何關係。本軟件不是官方的追踪程式。如果有強制性法律要求使用官方的追踪程式，切勿以本軟件作替代。用戶以此軟件的任何誤用行為引致的法律責任及其他後果，作者概不負責。 
+
+發佈
+===
+[<img src=https://img.shields.io/f-droid/v/com.headuck.app.gooutwithduck.svg>](
+https://img.shields.io/f-droid/v/com.headuck.app.gooutwithduck.svg)
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" 
+      height="75"
+      alt="Get it on F-Droid">](https://f-droid.org/en/packages/com.headuck.app.gooutwithduck)
+
+F-Droid repo
+
+[<img src=https://user-images.githubusercontent.com/79254904/108467911-e5d28b00-72c0-11eb-9722-968168aa4b3c.png>](https://repo.headuck.com/fdroid/repo?fingerprint=A0D3386F3BFE7AEA2DE0FE52CF6B550FFE4CB48320EAE35775418C2024272B58)
 
 License (Except icon and Headuck logo)
 --------------------------------------
