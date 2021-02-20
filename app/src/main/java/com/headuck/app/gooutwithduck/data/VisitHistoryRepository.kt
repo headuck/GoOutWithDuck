@@ -172,6 +172,13 @@ class VisitHistoryRepository @Inject constructor(private val visitHistoryDao: Vi
         Err(e)
     }
 
+    suspend fun setExposure(visitHistoryId: Int, exposure: String?) = try {
+        visitHistoryDao.setExposure(visitHistoryId, exposure)
+        Ok(true)
+    } catch (e: Exception) {
+        Err(e)
+    }
+
     suspend fun deleteVisitHistory(visitHistory: VisitHistory) = try {
         visitHistoryDao.deleteVisitHistory(visitHistory)
         Ok(true)

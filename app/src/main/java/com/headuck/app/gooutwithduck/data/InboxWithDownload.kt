@@ -53,7 +53,7 @@ data class InboxWithDownload(
      * relevant inbox id
      */
     @ColumnInfo(name = "inbox_id")
-    val inboxId: Int,
+    var inboxId: Int,
     /**
      * relevant download id
      */

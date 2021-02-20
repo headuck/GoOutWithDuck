@@ -96,8 +96,8 @@ class HomePagerFragment : Fragment() {
         val bottomNavigation = binding.homePagerBottomNavigation
 
         val graphId = R.navigation.nav_main
-        val itemIds = listOf(R.id.page_main, /*R.id.page_inbox,*/ R.id.page_history /*, R.id.page_confirmed*/)
-        val startIds = listOf(R.id.mainFragment, R.id.historyFragment)
+        val itemIds = listOf(R.id.page_main, R.id.page_inbox, R.id.page_history , R.id.page_download)
+        val startIds = listOf(R.id.mainFragment, R.id.inboxFragment, R.id.historyFragment, R.id.downloadFragment)
 
         // Setup the bottom navigation view with a list of navigation graphs
         val controller = bottomNavigation.setupWithNavController(

@@ -18,21 +18,9 @@
  *
  */
 
-package com.headuck.app.gooutwithduck.data
+package com.headuck.app.gooutwithduck.utilities
 
-import java.util.*
 
-sealed class VisitHistoryUiModel {
-    class VisitHistoryItem(val id: Int, val venueInfo: VenueInfo, val startDate: Calendar, val endDate: Calendar?,
-                           val autoEndDate: Calendar?, val exposure: String?) : VisitHistoryUiModel() {
-        constructor(visitHistory: VisitHistory) : this(
-                visitHistory.id, visitHistory.venueInfo, visitHistory.startDate,
-                visitHistory.endDate, visitHistory.autoEndDate, visitHistory.exposure
-        )
-    }
-
-    class DateHeaderItem(private val date: Calendar) : VisitHistoryUiModel(), DateHeader {
-        override fun getDate(): Calendar = date
-    }
-
+fun countCase(random: String) : Int {
+    return random.filter{ it == ',' }.count() + 1
 }

@@ -44,20 +44,14 @@
 
         <!-- include app bar -->
         <include layout="@layout/fragment_main_appbar"
-            android:id="@+id/fragment_main_app_bar"
-            app:ref="@{1}"
-            />
+            android:id="@+id/fragment_main_app_bar"/>
 
         <include layout="@layout/fragment_main_bookmark"
-            android:id="@+id/fragment_main_bookmark"
-            app:ref="@{2}"
-        />
+            android:id="@+id/fragment_main_bookmark"/>
 
         <!-- include bottom sheet -->
         <include layout="@layout/fragment_main_bottom_sheet"
-            android:id="@+id/fragment_main_bottom_sheet"
-            app:ref="@{3}"
-        />
+            android:id="@+id/fragment_main_bottom_sheet"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_fab"

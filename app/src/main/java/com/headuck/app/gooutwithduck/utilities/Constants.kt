@@ -25,9 +25,11 @@ package com.headuck.app.gooutwithduck.utilities
  */
 const val DATABASE_NAME = "gooutwithduck-db"
 
-const val BASE_API_URL = "https://regqr.gov.hk/app/"
+const val BASE_API_URL = "https://www.regqr.gov.hk/app/"
 
 const val CITIZEN_CHECK_IN = "CITIZEN_CHECK_IN"
 const val NO_HISTORY_TYPE = ""
+const val NO_DOWNLOAD_TYPE = ""
+const val NO_INBOX_FILTER = ""
 
 const val SNACK_DURATION = 6000

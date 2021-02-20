@@ -22,6 +22,7 @@ package com.headuck.app.gooutwithduck.usecases;
 
 
 import android.util.Base64
+import androidx.paging.PagingData
 
 import at.favre.lib.crypto.HKDF
 import com.github.michaelbull.result.*
@@ -31,6 +32,7 @@ import com.headuck.app.gooutwithduck.data.*
 import com.headuck.app.gooutwithduck.proto.Exposure
 
 import com.headuck.app.gooutwithduck.proto.UserPreferences
+import com.headuck.app.gooutwithduck.utilities.NO_DOWNLOAD_TYPE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
@@ -59,57 +61,83 @@ class DownloadUseCase @Inject constructor(private val downloadCaseRepository: Do
                                           private val apiService: ApiService,
                                           private val userPreferencesRepository: UserPreferencesRepository) {
 
-    suspend fun downloadCases() : Result<Boolean, IOException> {
+    fun getDownloadList(filter: String):  Flow<PagingData<DownloadCase>> =
+            if (filter == NO_DOWNLOAD_TYPE) {
+                downloadCaseRepository.getDownloadCaseFlow("")
+            } else {
+                downloadCaseRepository.getDownloadCaseFlow(filter)
+            }
+
+    suspend fun downloadCases() : Result<Boolean, Exception> {
         val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
         val userPreference = userPreferencesFlow.first()
 
-        return withContext(Dispatchers.IO) {
-            try {
-                val response = apiService.getBatches()
-                val list = response?.body()
-                val listFiltered = batchFilter(userPreference, list ?: ArrayList())
-                Ok(listFiltered)
-            } catch (e: IOException) {
-                Timber.e(e, "Exception occurred: %s %s", e.javaClass.simpleName, e.message);
-                Err(e)
-            }
-        }.andThen {batchList ->
+        // Get max batch id in downloadCase table
+        return downloadCaseRepository.getMaxBatchId().fold(
+        { maxBatchId ->
+            withContext(Dispatchers.IO) {
+                try {
+                    val response = apiService.getBatches()
+                    val list = response?.body()
+                    val listFiltered = batchFilter(userPreference, list ?: ArrayList())
+                    Ok(listFiltered)
+                } catch (e: IOException) {
+                    Timber.e(e, "Exception occurred: %s %s", e.javaClass.simpleName, e.message);
+                    Err(e)
+                }
+            }.andThen { batchList ->
                 try {
                     // Timber.d("Batch list %s", batchList.toString())
                     Ok(getZipFilesAsByteArrays(batchList)
                             .flowOn(Dispatchers.IO)
                             .buffer(5)
-                            .flatMapConcat (this::byteArrayToDownloadCaseFlow)
-                            .foldConsecutive (this::mergeWithSameVenueId)
+                            .flatMapConcat(this::byteArrayToDownloadCaseFlow)
+                            .foldConsecutive(this::mergeWithSameVenueId)
                             .map {
-                                val saved = downloadCaseRepository.insertDownloadCase(it).unwrap() // raise exception
-                                Triple(it.id, it.batchDate, saved)
+                                val saved = if (it.batchId <= maxBatchId) {
+                                    // May be a retry after interruption
+                                    downloadCaseRepository.insertDownloadCaseWithDupCheck(it)
+                                } else {
+                                    // Normal case, insert w/o duplicate check
+                                    downloadCaseRepository.insertDownloadCase(it)
+                                }.unwrap() // raise exception
+                                Triple(it.batchId, it.batchDate, saved)
                             }
-                            .fold(Triple(userPreference.lastDownloadBatch, userPreference.lastDownloadTime, 0L)) {
-                                acc, value -> Triple(
-                                    kotlin.math.max(acc.first, value.first), // last downloaded batch
-                                    kotlin.math.max(acc.second, value.second.timeInMillis), // last download time
-                                    acc.third + value.third // sum of inserts
+                            .fold(Triple(userPreference.lastDownloadBatch, userPreference.lastDownloadTime, 0L)) { acc, value ->
+                                Triple(
+                                        kotlin.math.max(acc.first, value.first), // last downloaded batch
+                                        kotlin.math.max(acc.second, value.second.timeInMillis), // last download time
+                                        acc.third + value.third // sum of inserts
                                 )
                             }
-                            .run{
+                            .run {
                                 userPreferencesRepository.updateLastBatchInfo(this.first, this.second)
                                 userPreferencesRepository.updateLastUserDownloadTime(System.currentTimeMillis())
                                 this.third > 0
                             })
 
-                } catch (e: IOException) {
-                    Timber.e(e, "Exception occurred: %s %s", e.javaClass.simpleName, e.message);
-                    Err(e)
+
+                } catch (e: Exception) {
+                    // Unwrap UnwrapException if it wraps an exception
+                    val err = if (e is UnwrapException) {
+                        if (e.cause is Exception) e.cause as Exception else e
+                    } else {
+                        e
+                    }
+                    Timber.e(err, "Exception occurred: %s %s", err.javaClass.simpleName, err.message);
+                    Err(err)
                 }
-        }
-
-
+            }
+        },
+        {
+            error -> Err(error)
+        })
     }
 
     private fun batchFilter(userPreference: UserPreferences, batchList: List<BatchModel>) : List<BatchModel> {
         val lastDlTime = userPreference.lastDownloadTime
         val lastDlBatch = userPreference.lastDownloadBatch
+        Timber.d("Last dl time $lastDlTime last batch $lastDlBatch")
         return batchList.filter{
             it.batchSize > 0 && (it.id > lastDlBatch || batchFilenameLaterThan(it, lastDlTime))
         }
@@ -202,7 +230,7 @@ class DownloadUseCase @Inject constructor(private val downloadCaseRepository: Do
         val keyDataDecoded = Base64.decode(keyData, Base64.DEFAULT)
         val hkdf = HKDF.fromHmacSha256()
         val extracted = hkdf.extract(null as? ByteArray, keyInterval) // passing null is ambiguous
-        val key = hkdf.expand(extracted, "HKEN".toByteArray(), 16)
+        val key = hkdf.expand(extracted, "HKEN".toByteArray(), 32)
 
         // AES 128 decryption
         val skeySpec = SecretKeySpec(key, "AES")

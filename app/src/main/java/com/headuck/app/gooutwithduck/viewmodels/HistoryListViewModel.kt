@@ -23,21 +23,21 @@ package com.headuck.app.gooutwithduck.viewmodels
 import android.app.Application
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.work.ExistingWorkPolicy
-import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.andThen
 import com.headuck.app.gooutwithduck.HistoryListFragment
 import com.headuck.app.gooutwithduck.data.VenueInfo
 import com.headuck.app.gooutwithduck.data.VisitHistory
+import com.headuck.app.gooutwithduck.usecases.ExposureUseCase
 import com.headuck.app.gooutwithduck.usecases.GetHistoryUseCase
 import com.headuck.app.gooutwithduck.utilities.NO_HISTORY_TYPE
-import com.headuck.app.gooutwithduck.workers.GetBatchesWorker
 import kotlinx.coroutines.flow.Flow
-import timber.log.Timber
-import java.util.*
 
 /**
  * The ViewModel for [HistoryListFragment].
@@ -45,6 +45,7 @@ import java.util.*
 class HistoryListViewModel @ViewModelInject internal constructor(
         applicationCtx: Application,
         private val getHistoryUseCase: GetHistoryUseCase,
+        private val exposureUseCase: ExposureUseCase,
         @Assisted private val savedStateHandle: SavedStateHandle
 ) : AndroidViewModel(applicationCtx) {
     private var currentSearchResult: Flow<PagingData<VisitHistory>>? = null
@@ -78,27 +79,16 @@ class HistoryListViewModel @ViewModelInject internal constructor(
         getHistoryUseCase.getBookmarkCountByTypeAndVenueId(type, venueId)
 
     suspend fun createBookmark(venueInfo: VenueInfo) =
-        getHistoryUseCase.createBookmark(venueInfo)
+        getHistoryUseCase.createBookmark(venueInfo).andThen { id ->
+            exposureUseCase.exposureCheckNewBookmark(id.toInt()).andThen {
+                Ok(id)
+            }
+        }
 
     suspend fun deleteBookmark(venueInfo: VenueInfo) =
         getHistoryUseCase.deleteBookmark(venueInfo)
 
     fun isFiltered() = getHistoryTypeFilter() != NO_HISTORY_TYPE
-
-    internal fun download(): UUID {
-        // Add WorkRequest to Cleanup temporary images
-        val request = OneTimeWorkRequest.from(GetBatchesWorker::class.java)
-        var continuation = workManager
-                .beginUniqueWork(
-                        DOWNLOAD_WORK_NAME,
-                        ExistingWorkPolicy.KEEP,
-                        request
-                )
-        // Actually start the work
-        continuation.enqueue()
-
-        return request.id
-    }
 
     private fun getHistoryTypeFilter(): String {
         return savedStateHandle.get(HISTORY_TYPE_SAVED_STATE_KEY) ?: NO_HISTORY_TYPE
@@ -106,6 +96,5 @@ class HistoryListViewModel @ViewModelInject internal constructor(
 
     companion object {
         private const val HISTORY_TYPE_SAVED_STATE_KEY = "HISTORY_TYPE_SAVED_STATE_KEY"
-        private const val DOWNLOAD_WORK_NAME = "DOWNLOAD_WORK"
     }
 }

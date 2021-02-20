@@ -23,6 +23,7 @@ package com.headuck.app.gooutwithduck.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.room.Query
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -64,6 +65,22 @@ class InboxRepository @Inject constructor(private val inboxDao: InboxDao) {
     suspend fun getInboxById(inboxId: Int) = try {
         val visitHistory = inboxDao.getInbox(inboxId)
         if (visitHistory != null) Ok(visitHistory) else Err(IllegalArgumentException("Inbox id $inboxId not found"))
+    } catch (e: Exception) {
+        Err(e)
+    }
+
+    /**
+     * Get Inbox Record for history ids
+     */
+    suspend fun getInboxWithHistoryIds(historyIds: Set<Int>) = try {
+        val inboxList = inboxDao.getInboxWithHistoryIds(historyIds)
+        if (inboxList != null) Ok(inboxList) else Err(IllegalArgumentException("getInboxWithHistoryIds error"))
+    } catch (e: Exception) {
+        Err(e)
+    }
+
+    suspend fun saveInboxWithDownloadList(inbox: Inbox, inboxWithDownloadList: List<InboxWithDownload>, newInbox: Boolean) = try {
+        Ok(inboxDao.saveInboxWithDownloadList(inbox, inboxWithDownloadList, newInbox))
     } catch (e: Exception) {
         Err(e)
     }

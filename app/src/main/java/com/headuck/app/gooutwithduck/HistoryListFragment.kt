@@ -30,15 +30,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.paging.insertSeparators
 import androidx.paging.map
 import androidx.recyclerview.widget.RecyclerView
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
 import com.github.michaelbull.result.onSuccess
 import com.headuck.app.gooutwithduck.adapters.HistoryAdapter
 import com.headuck.app.gooutwithduck.data.VisitHistoryUiModel
@@ -47,7 +44,6 @@ import com.headuck.app.gooutwithduck.utilities.isDateDifferent
 import com.headuck.app.gooutwithduck.utilities.toDateStart
 import com.headuck.app.gooutwithduck.viewmodels.HistoryListViewModel
 import com.headuck.app.gooutwithduck.views.RecyclerTouchListener
-import com.headuck.app.gooutwithduck.workers.GetBatchesWorker.Companion.KEY_BATCH_DATA
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -156,25 +152,6 @@ class HistoryListFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun download() {
-        val workId = viewModel.download()
-        activity?.let {
-            WorkManager.getInstance(it.applicationContext).getWorkInfoByIdLiveData(workId)
-                    .observe(this, Observer { info ->
-                        if (info != null && info.state.isFinished) {
-                            if (info.state != WorkInfo.State.SUCCEEDED) {
-                                Timber.d("Error!!")
-                            } else {
-                                val myResult = info.outputData.getString(KEY_BATCH_DATA)
-                                Timber.d("Result %s", myResult)
-                            }
-                        }
-                    })
-        }
-
-
     }
 
     private fun updateData() {

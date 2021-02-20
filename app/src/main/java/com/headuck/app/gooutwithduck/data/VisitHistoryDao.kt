@@ -30,7 +30,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
-import java.util.*
+import java.util.Calendar
 
 /**
  * The Data Access Object for the [VisitHistory] class.
@@ -94,6 +94,9 @@ abstract class VisitHistoryDao {
     @Query("DELETE FROM visit_history WHERE start_date < :startDate AND bookmark = 0")
     abstract suspend fun deleteVisitHistoryBefore(startDate: Calendar)
 
+    @Query("UPDATE visit_history SET exposure = :exposure WHERE id = :id")
+    abstract suspend fun updateVisitHistoryExposure(id: Int, exposure: String?)
+
     @Transaction
     open suspend fun leaveVenue(visitHistoryId: Int, time: Calendar): Boolean {
         val visitHistory = getVisitHistory(visitHistoryId)
@@ -131,8 +134,23 @@ abstract class VisitHistoryDao {
         } ?: false
     }
 
+    @Transaction
+    open suspend fun setExposure(visitHistoryId: Int, exposureIn: String?): Boolean {
+        val visitHistory = getVisitHistory(visitHistoryId)
+        Timber.d("Get history id %d", visitHistoryId)
+        return visitHistory?.run{
+            if (exposure != exposureIn) {
+                updateVisitHistoryExposure(visitHistoryId, exposureIn)
+                true
+            } else {
+                Timber.d("No need to update exposure")
+                false
+            }
+        } ?: false
+    }
+
     /**
-     * Set the uploaded flag of visithistory. True if updated, false if no need to update or error
+     * Set the uploaded flag of visit history. True if updated, false if no need to update or error
      */
     @Transaction
     open suspend fun setUploaded(visitHistoryId: Int, value: Boolean): Boolean {

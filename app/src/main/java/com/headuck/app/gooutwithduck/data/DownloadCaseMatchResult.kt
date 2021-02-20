@@ -37,6 +37,8 @@ data class DownloadCaseMatchResult (
     val visitStartDate: Calendar,
     @ColumnInfo(name = "visit_end_date")
     val visitEndDate: Calendar?,
+    @ColumnInfo(name = "download_id")
+    val downloadId: Int,
     @ColumnInfo(name = "download_start_date")
     val downloadStartDate: Calendar,
     @ColumnInfo(name = "download_end_date")
@@ -49,6 +51,7 @@ data class DownloadCaseMatchResult (
         return "DownloadCaseMatchResult(id=$id, type='$type', venueId='$venueId', nameEn=$nameEn, nameZh=$nameZh, licenseNo=$licenseNo, " +
                 "visit_random=$visitRandom, visit_start_date=${dateFormat.format(visitStartDate.time)}, " +
                 "visit_end_date=${visitEndDate?.let{dateFormat.format(it.time)}}, " +
+                "download_id=${downloadId}, " +
                 "download_start_date=${dateFormat.format(downloadStartDate.time)}, download_end_date=${dateFormat.format(downloadEndDate.time)}, " +
                 "download_random='$downloadRandom')"
     }

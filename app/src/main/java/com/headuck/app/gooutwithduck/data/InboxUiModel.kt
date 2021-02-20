@@ -20,18 +20,19 @@
 
 package com.headuck.app.gooutwithduck.data
 
-import java.util.*
+import com.headuck.app.gooutwithduck.utilities.countCase
+import java.util.Calendar
 
-sealed class VisitHistoryUiModel {
-    class VisitHistoryItem(val id: Int, val venueInfo: VenueInfo, val startDate: Calendar, val endDate: Calendar?,
-                           val autoEndDate: Calendar?, val exposure: String?) : VisitHistoryUiModel() {
-        constructor(visitHistory: VisitHistory) : this(
-                visitHistory.id, visitHistory.venueInfo, visitHistory.startDate,
-                visitHistory.endDate, visitHistory.autoEndDate, visitHistory.exposure
+sealed class InboxUiModel {
+    class InboxItem(val id: Int, val venueInfo: VenueInfo, val date: Calendar, val lastUpdate: Calendar, val bookmark: Boolean,
+                           val count: Int, val exposure: String?, val read: Boolean, val historyId: Int) : InboxUiModel() {
+        constructor(inbox: Inbox) : this(
+                inbox.id, inbox.venueInfo, inbox.date, inbox.lastUpdate,
+                inbox.bookmark, inbox.count, inbox.exposure, inbox.read, inbox.historyId
         )
     }
 
-    class DateHeaderItem(private val date: Calendar) : VisitHistoryUiModel(), DateHeader {
+    class DateHeaderItem(private val date: Calendar) : InboxUiModel(), DateHeader {
         override fun getDate(): Calendar = date
     }
 

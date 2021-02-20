@@ -23,14 +23,15 @@
     <string name="app_short_name">出🦆嚟行</string>
 
     <string name="menu_home">主頁</string>
-    <string name="menu_email">通知</string>
+    <string name="menu_inbox">通知</string>
     <string name="menu_upload">報告</string>
-    <string name="menu_confirmed">個案</string>
+    <string name="menu_download">個案</string>
     <string name="menu_history">紀錄</string>
     <string name="menu_settings">設定</string>
 
     <string name="title_main_record_text">記錄到訪地點</string>
     <string name="title_history">到訪紀錄</string>
+    <string name="title_download">個案到訪地點</string>
 
     <string name="menu_delete_venue">删除</string>
 
@@ -63,6 +64,8 @@
     <string name="leave_success_message">於 %1$s 離開 %2$s</string>
     <string name="leave_success_edit_action">更改</string>
 
+    <string name="download_error_message">更新失敗: %1$s</string>
+
     <plurals name="checkin_others">
         <item quantity="other">及另外 %d 個地點</item>
     </plurals>
@@ -94,5 +97,6 @@
     <string name="details_venue_type">種類</string>
     <string name="details_change">更改</string>
 
+    <string name="title_inbox">通知</string>
 
 </resources>

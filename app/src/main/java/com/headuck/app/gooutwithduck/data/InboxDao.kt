@@ -26,6 +26,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import java.util.*
@@ -46,6 +47,9 @@ interface InboxDao {
     abstract fun getUnreadCount(): Flow<Int>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insert(inbox: Inbox): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(inbox: List<Inbox>)
 
     @Update
@@ -61,12 +65,25 @@ interface InboxDao {
     abstract suspend fun updateAllAsRead()
 
     @Query("SELECT * FROM inbox WHERE history_id IN (:historyIds)")
-    abstract suspend fun getInboxWithHistoryIds(historyIds: List<Int>): List<Inbox>
+    abstract suspend fun getInboxWithHistoryIds(historyIds: Set<Int>): List<Inbox>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun addInboxWithDownloadList(inboxWithDownloadList: List<InboxWithDownload>)
 
     @Update
     abstract suspend fun updateInboxWithDownloadList(inboxWithDownloadList: List<InboxWithDownload>): Int
+
+    @Transaction
+    suspend fun saveInboxWithDownloadList(inbox: Inbox, inboxWithDownloadList: List<InboxWithDownload>, newInbox: Boolean)  {
+        if (newInbox) {
+            val inboxId = insert(inbox).toInt()
+            inboxWithDownloadList.forEach{
+                it.inboxId = inboxId
+            }
+        } else {
+            updateAll(listOf(inbox))
+        }
+        addInboxWithDownloadList(inboxWithDownloadList)
+    }
 
 }

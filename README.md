@@ -17,6 +17,11 @@ Work in progress
 * Set retention period for records
 * Export of history to sharing (e.g. via Email) if needed
 
+Screenshots
+===========
+
+<img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="20%" /><img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="20%" /><img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="20%" /><img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="20%" />
+
 Important Notice
 ================
 This software is not in any way endorsed by nor affiliated with the Government of the HKSAR. It is not the official contact tracing app.  DO NOT use this software as a subsitute when there is a mandatory legal requirement to use the official tracing app.  The author takes no responsibility and legal liability for any misuse of this software.

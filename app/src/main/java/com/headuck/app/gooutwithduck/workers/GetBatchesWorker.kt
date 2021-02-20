@@ -44,20 +44,27 @@ class GetBatchesWorker @WorkerInject constructor(@Assisted ctx: Context, @Assist
     override suspend fun doWork(): Result {
         lateinit var result: Result
         downloadUseCase.downloadCases().onSuccess {
-            val outputData = if (exposureUseCase.exposureCheck()) {
-                workDataOf(KEY_BATCH_DATA to "Exposure")
-            } else {
-                workDataOf(KEY_BATCH_DATA to "No Exposure")
+            exposureUseCase.exposureCheckNewDownload().onSuccess {
+                val outputData = if (it) {
+                    workDataOf(KEY_BATCH_DATA to RESULT_EXPOSURE)
+                } else {
+                    workDataOf(KEY_BATCH_DATA to RESULT_NO_EXPOSURE)
+                }
+                result = Result.success(outputData)
+            }.onFailure {
+                result = Result.failure(workDataOf(KEY_ERROR_MSG to it.message))
             }
-            result = Result.success(outputData)
-         }.onFailure {
-            result = Result.failure()
-         }
+        }.onFailure {
+            result = Result.failure(workDataOf(KEY_ERROR_MSG to it.message))
+        }
         return result
     }
 
 
     companion object {
         const val KEY_BATCH_DATA = "KEY_BATCH_DATA"
+        const val KEY_ERROR_MSG = "KEY_ERROR_MSG"
+        const val RESULT_EXPOSURE = "Exposure"
+        const val RESULT_NO_EXPOSURE = "No Exposure"
     }
 }
