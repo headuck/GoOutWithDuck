@@ -20,7 +20,8 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+// apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
@@ -99,6 +100,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 protobuf {
@@ -106,7 +110,7 @@ protobuf {
     // Configure the protoc executable
     protoc {
         // Download from repositories
-        artifact = 'com.google.protobuf:protoc:3.9.1'
+        artifact = 'com.google.protobuf:protoc:3.13.0'
     }
 
     generateProtoTasks {
@@ -149,6 +153,7 @@ dependencies {
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpLoggingVersion"
+    implementation ("com.squareup.okhttp3:okhttp") { version { strictly "$rootProject.okhttpLoggingVersion" } }
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
@@ -162,7 +167,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0"
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
     implementation "androidx.multidex:multidex:$rootProject.multidex_version"
-    implementation "com.google.protobuf:protobuf-javalite:3.14.0"
+    implementation "com.google.protobuf:protobuf-javalite:3.13.0"
     implementation "at.favre.lib:hkdf:1.1.0"
     implementation project(":snap-time-picker")
     // Testing dependencies

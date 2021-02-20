@@ -25,19 +25,19 @@
         android:enabled="true"
         android:icon="@drawable/ic_menu_home"
         android:title="@string/menu_home"/>
-    <!--<item
+    <item
         android:id="@+id/page_inbox"
         android:enabled="true"
-        android:icon="@drawable/ic_menu_email"
-        android:title="@string/menu_email"/>-->
+        android:icon="@drawable/ic_menu_inbox"
+        android:title="@string/menu_inbox"/>
     <item
         android:id="@+id/page_history"
         android:enabled="true"
         android:icon="@drawable/ic_menu_history"
         android:title="@string/menu_history"/>
-    <!--<item
-        android:id="@+id/page_confirmed"
+    <item
+        android:id="@+id/page_download"
         android:enabled="true"
-        android:icon="@drawable/ic_menu_confirmed"
-        android:title="@string/menu_confirmed"/>-->
+        android:icon="@drawable/ic_menu_download"
+        android:title="@string/menu_download"/>
 </menu>

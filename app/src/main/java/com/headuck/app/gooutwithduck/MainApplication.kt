@@ -21,6 +21,7 @@
 package com.headuck.app.gooutwithduck
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.multidex.MultiDexApplication
 import androidx.work.Configuration
@@ -56,6 +57,7 @@ class MainApplication : MultiDexApplication(), Configuration.Provider {
         applicationScope.launch {
             checkFirstRunUseCase.firstRunCheck()
         }
+        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         Timber.plant(DebugTree())
     }

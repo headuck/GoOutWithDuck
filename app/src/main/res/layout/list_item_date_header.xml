@@ -29,7 +29,7 @@
             type="String"/>
         <variable
             name="dateHeader"
-            type="com.headuck.app.gooutwithduck.data.VisitHistoryUiModel.DateHeaderItem"/>
+            type="com.headuck.app.gooutwithduck.data.DateHeader"/>
     </data>
 
     <LinearLayout
@@ -46,8 +46,8 @@
             android:text="@{LocaleUtil.getVisitLocationDate(displayLang, dateHeader.date)}"
             android:textAppearance="?attr/textAppearanceListItem"
             android:gravity="start"
-            app:layout_constraintEnd_toStartOf="@id/history_item_time"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2020-12-12"/>
 

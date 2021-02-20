@@ -49,7 +49,7 @@ buildscript {
         materialVersion = '1.2.1'
         multidex_version = '2.0.1'
         navigationVersion = '2.3.3'
-        okhttpLoggingVersion = '4.7.2'
+        okhttpLoggingVersion = '3.12.13'
         pagingVersion = '3.0.0-alpha13'
         recyclerViewVersion = '1.2.0-beta01'
         retrofitVersion = '2.9.0'

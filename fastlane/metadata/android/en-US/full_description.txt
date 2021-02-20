@@ -5,12 +5,13 @@ GoOutWithDuck is for recording visits in Hong Kong. It has the following feature
 * Allow saving of bookmark and pinning of bookmark for frequently visited venues
 * Allow viewing of visit history
 * Easy removal of wrong check-ins
-
-Work in progress
 * Edit and deletion of records
 * Auto leave
-* Manual entry of license no. of taxi and other public transports
 * Download confirmed case and issue notifications
+
+Work in progress
+* Auto download and Android notification
+* Manual entry of license no. of taxi and other public transports
 * Set retention period for records
 * Export of history to sharing (e.g. via Email) if needed
 

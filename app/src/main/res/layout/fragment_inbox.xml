@@ -23,37 +23,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/fragment_inbox_coord_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.headuck.app.gooutwithduck.HomeActivity"
+
+        tools:ignore="MergeRootFrame">
+
     <LinearLayout
+        android:id="@+id/fragment_inbox_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/history_list_appbar"
+        android:id="@+id/inbox_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/Theme.GoOutWithDuck.AppBarOverlay">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/history_list_toolbar"
+            android:id="@+id/inbox_toolbar"
             style="@style/Widget.GoOutWithDuck.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/title_history" />
+            app:title="@string/title_inbox" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/history_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:paddingTop="@dimen/header_margin"
-            android:layout_weight="1"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:context="com.headuck.app.gooutwithduck.HomeActivity"
-            tools:listitem="@layout/list_item_history"/>
+        android:id="@+id/inbox_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/header_margin"
+        android:layout_weight="1"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:context="com.headuck.app.gooutwithduck.HomeActivity"
+        tools:listitem="@layout/list_item_inbox"/>
 
     </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

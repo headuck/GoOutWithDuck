@@ -25,5 +25,8 @@ data class BatchModel(val id: Int,
                       val startTs: Long?,
                       val endTs: Long?,
                       val filename: String,
-                      val updatedAt: Long
+                      val updatedAt: Long,
+                      val version: Int,
+                      val createdBy: String,
+                      val updatedBy: String
 )

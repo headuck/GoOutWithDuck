@@ -22,14 +22,25 @@ package com.headuck.app.gooutwithduck.data
 
 import androidx.paging.PagingSource
 import androidx.room.*
+import timber.log.Timber
+import java.util.Calendar
 
 /**
  * The Data Access Object for the [DownloadCase] class.
  */
 @Dao
 interface DownloadCaseDao {
-    @Query("SELECT * FROM download_case ORDER BY start_date DESC")
+    @Query("SELECT * FROM download_case ORDER BY start_date DESC, id DESC")
     fun getDownloadCaseList(): PagingSource<Int, DownloadCase>
+
+    @Query("SELECT * FROM download_case WHERE type = :type ORDER BY start_date DESC, id DESC")
+    fun getDownloadCaseListByType(type: String): PagingSource<Int, DownloadCase>
+
+    @Query("SELECT COUNT(*) FROM download_case WHERE start_date = :startDate and venueId = :venueId and type = :type and batchId = :id")
+    suspend fun getDownloadCaseCountByVenueIdAndBatchIdAndStartDate(venueId: String, type: String, id: Int, startDate: Calendar): Int
+
+    @Query("SELECT MAX(batchId) FROM download_case")
+    suspend fun getMaxBatchId(): Int?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDownloadCase(downloadCase: DownloadCase): Long
@@ -43,6 +54,21 @@ interface DownloadCaseDao {
     @Query("DELETE FROM download_case")
     suspend fun deleteAllDownloadCase()
 
+    /**
+     * Check duplicate download case (same venueId, type, batchId and startDate) before insert
+     */
+    @Transaction
+    suspend fun insertDownloadCaseWithDupCheck(downloadCase: DownloadCase): Long {
+        val count = getDownloadCaseCountByVenueIdAndBatchIdAndStartDate(downloadCase.venueInfo.venueId,
+                downloadCase.venueInfo.type, downloadCase.batchId, downloadCase.startDate)
+        return if (count > 0) {
+            Timber.w("Case: ${downloadCase.venueInfo.venueId} Count %d, insert ignored", count)
+            0
+        } else {
+            insertDownloadCase(downloadCase)
+        }
+    }
+
     @Transaction
     @Query("SELECT " +
             "visit_history.id, visit_history.type, visit_history.venueId, " +
@@ -50,6 +76,7 @@ interface DownloadCaseDao {
             "visit_history.random as visit_random, " +
             "visit_history.start_date as visit_start_date, visit_history.end_date as visit_end_date, " +
             "download_case.start_date as download_start_date, download_case.end_date as download_end_date, " +
+            "download_case.id as download_id, " +
             "download_case.random as download_random " +
             "FROM visit_history INNER JOIN download_case " +
             "ON visit_history.type = download_case.type AND visit_history.venueId = download_case.venueId " +
@@ -64,10 +91,25 @@ interface DownloadCaseDao {
             "visit_history.random as visit_random, " +
             "visit_history.start_date as visit_start_date, " +
             "download_case.start_date as download_start_date, download_case.end_date as download_end_date, " +
+            "download_case.id as download_id, " +
             "download_case.random as download_random " +
             "FROM visit_history INNER JOIN download_case " +
             "ON visit_history.type = download_case.type AND visit_history.venueId = download_case.venueId " +
             "WHERE visit_history.bookmark = 1 AND download_case.matched = 0")
     suspend fun checkBookmarkMatch() : List<DownloadCaseMatchResult>
+
+    @Transaction
+    @Query("SELECT " +
+            "visit_history.id, visit_history.type, visit_history.venueId, " +
+            "visit_history.nameEn, visit_history.nameZh, visit_history.licenseNo, " +
+            "visit_history.random as visit_random, " +
+            "visit_history.start_date as visit_start_date, " +
+            "download_case.start_date as download_start_date, download_case.end_date as download_end_date, " +
+            "download_case.id as download_id, " +
+            "download_case.random as download_random " +
+            "FROM visit_history INNER JOIN download_case " +
+            "ON visit_history.type = download_case.type AND visit_history.venueId = download_case.venueId " +
+            "WHERE visit_history.id = :visitHistoryId")
+    suspend fun checkNewBookmarkMatch(visitHistoryId: Int) : List<DownloadCaseMatchResult>
 
 }

@@ -20,18 +20,19 @@
 
 package com.headuck.app.gooutwithduck.data
 
-import java.util.*
+import com.headuck.app.gooutwithduck.utilities.countCase
+import java.util.Calendar
 
-sealed class VisitHistoryUiModel {
-    class VisitHistoryItem(val id: Int, val venueInfo: VenueInfo, val startDate: Calendar, val endDate: Calendar?,
-                           val autoEndDate: Calendar?, val exposure: String?) : VisitHistoryUiModel() {
-        constructor(visitHistory: VisitHistory) : this(
-                visitHistory.id, visitHistory.venueInfo, visitHistory.startDate,
-                visitHistory.endDate, visitHistory.autoEndDate, visitHistory.exposure
+sealed class DownloadUiModel {
+    class DownloadItem(val id: Int, val venueInfo: VenueInfo, val startDate: Calendar, val endDate: Calendar,
+                           val batchDate: Calendar, val numCase: Int) : DownloadUiModel() {
+        constructor(downloadCase: DownloadCase) : this(
+                downloadCase.id, downloadCase.venueInfo, downloadCase.startDate,
+                downloadCase.endDate, downloadCase.batchDate, countCase(downloadCase.random)
         )
     }
 
-    class DateHeaderItem(private val date: Calendar) : VisitHistoryUiModel(), DateHeader {
+    class DateHeaderItem(private val date: Calendar) : DownloadUiModel(), DateHeader {
         override fun getDate(): Calendar = date
     }
 

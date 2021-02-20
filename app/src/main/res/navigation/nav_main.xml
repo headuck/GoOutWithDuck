@@ -92,5 +92,15 @@
             android:name="visitHistoryId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/downloadFragment"
+        android:name="com.headuck.app.gooutwithduck.DownloadFragment"
+        android:label="DownloadFragment"
+        tools:layout="@layout/fragment_download"/>
 
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.headuck.app.gooutwithduck.InboxFragment"
+        android:label="InboxFragment"
+        tools:layout="@layout/fragment_inbox"/>
 </navigation>

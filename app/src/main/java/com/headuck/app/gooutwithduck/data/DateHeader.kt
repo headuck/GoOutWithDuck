@@ -20,19 +20,8 @@
 
 package com.headuck.app.gooutwithduck.data
 
-import java.util.*
+import java.util.Calendar
 
-sealed class VisitHistoryUiModel {
-    class VisitHistoryItem(val id: Int, val venueInfo: VenueInfo, val startDate: Calendar, val endDate: Calendar?,
-                           val autoEndDate: Calendar?, val exposure: String?) : VisitHistoryUiModel() {
-        constructor(visitHistory: VisitHistory) : this(
-                visitHistory.id, visitHistory.venueInfo, visitHistory.startDate,
-                visitHistory.endDate, visitHistory.autoEndDate, visitHistory.exposure
-        )
-    }
-
-    class DateHeaderItem(private val date: Calendar) : VisitHistoryUiModel(), DateHeader {
-        override fun getDate(): Calendar = date
-    }
-
+interface DateHeader {
+    fun getDate(): Calendar
 }

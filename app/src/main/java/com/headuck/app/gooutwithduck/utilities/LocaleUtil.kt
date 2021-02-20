@@ -141,5 +141,18 @@ class LocaleUtil {
                     }
                 } ?: ""
 
+        @JvmStatic
+        fun getNumCase(displayLang: String, numCase: Int): String =
+                when (displayLang) {
+                    "zh" -> "$numCase 宗個案"
+                    else -> if (numCase > 1) "$numCase cases" else "$numCase case"
+                }
+
+        @JvmStatic
+        fun getExposureText(displayLang: String, exposure: String): String =
+                when (displayLang) {
+                    "zh" -> if (exposure == "D") "Direct" else "Indirect"
+                    else -> if (exposure == "D") "直接" else "間接"
+                }
     }
 }

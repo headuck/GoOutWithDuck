@@ -20,8 +20,13 @@
 
 package com.headuck.app.gooutwithduck.data
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.PagingSource
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -35,14 +40,45 @@ import javax.inject.Singleton
 @Singleton
 class DownloadCaseRepository @Inject constructor(private val downloadCaseDao: DownloadCaseDao) {
 
+    fun getDownloadCaseFlow(type: String): Flow<PagingData<DownloadCase>> =
+            Pager(
+                    config = PagingConfig(enablePlaceholders = false, pageSize = DownloadCaseRepository.DB_PAGE_SIZE),
+                    pagingSourceFactory = {
+                        if (type == "")
+                            downloadCaseDao.getDownloadCaseList()
+                        else
+                            downloadCaseDao.getDownloadCaseListByType(type)
+                    }
+            ).flow
+
+    suspend fun getMaxBatchId() = try {
+        Ok(downloadCaseDao.getMaxBatchId()?: -1)
+    } catch (e: Exception) {
+        Err(e)
+    }
+
     suspend fun insertDownloadCase(downloadCase: DownloadCase) = try {
+        /*
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
         Timber.d("Thread ${Thread.currentThread().name}, venueInfo=%s start=%s end=%s",
                 downloadCase.venueInfo,
                 dateFormat.format(downloadCase.startDate.time),
                 dateFormat.format(downloadCase.endDate.time))
-
+        */
         Ok(downloadCaseDao.insertDownloadCase(downloadCase))
+    } catch (e: Exception) {
+        Err(e)
+    }
+
+    suspend fun insertDownloadCaseWithDupCheck(downloadCase: DownloadCase) = try {
+        /*
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+        Timber.d("Thread ${Thread.currentThread().name}, venueInfo=%s start=%s end=%s",
+                downloadCase.venueInfo,
+                dateFormat.format(downloadCase.startDate.time),
+                dateFormat.format(downloadCase.endDate.time))
+        */
+        Ok(downloadCaseDao.insertDownloadCaseWithDupCheck(downloadCase))
     } catch (e: Exception) {
         Err(e)
     }
@@ -59,6 +95,12 @@ class DownloadCaseRepository @Inject constructor(private val downloadCaseDao: Do
         Err(e)
     }
 
+    suspend fun checkNewBookmarkMatch(visitHistoryId: Int) = try {
+        Ok(downloadCaseDao.checkNewBookmarkMatch(visitHistoryId))
+    } catch (e: Exception) {
+        Err(e)
+    }
+
     suspend fun updateAllAsMatched() =
             downloadCaseDao.updateAllAsMatched()
 
@@ -66,7 +108,7 @@ class DownloadCaseRepository @Inject constructor(private val downloadCaseDao: Do
             downloadCaseDao.deleteAllDownloadCase()
 
     companion object {
-        private const val DB_PAGE_SIZE = 10
+        private const val DB_PAGE_SIZE = 20
     }
 
 }

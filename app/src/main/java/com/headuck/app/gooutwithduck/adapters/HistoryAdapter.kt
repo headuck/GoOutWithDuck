@@ -216,7 +216,7 @@ class HistoryDiffCallback : DiffUtil.ItemCallback<VisitHistoryUiModel>() {
                 oldItem.autoEndDate == newItem.autoEndDate &&
                 oldItem.exposure == newItem.exposure
             oldItem is VisitHistoryUiModel.DateHeaderItem && newItem is VisitHistoryUiModel.DateHeaderItem ->
-                oldItem.date == newItem.date
+                oldItem.getDate() == newItem.getDate()
             else ->
                 false
         }
@@ -226,7 +226,7 @@ class HistoryDiffCallback : DiffUtil.ItemCallback<VisitHistoryUiModel>() {
             oldItem is VisitHistoryUiModel.VisitHistoryItem && newItem is VisitHistoryUiModel.VisitHistoryItem ->
                 oldItem.id == newItem.id
             oldItem is VisitHistoryUiModel.DateHeaderItem && newItem is VisitHistoryUiModel.DateHeaderItem ->
-                oldItem.date == newItem.date
+                oldItem.getDate() == newItem.getDate()
             else ->
                 false
         }

@@ -28,7 +28,7 @@ import retrofit2.http.Path
 import retrofit2.http.Streaming
 
 interface ApiService {
-    @GET("batch/LastBatch.json")
+    @GET("v2/batch/LastBatch.json")
     suspend fun getBatches(): Response<List<BatchModel>?>?
 
     @Streaming

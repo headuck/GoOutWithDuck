@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2021 headuck (https://blog.headuck.com/)
+  ~
+  ~ This file is part of GoOutWithDuck
+  ~
+  ~ GoOutWithDuck is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ GoOutWithDuck is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with GoOutWithDuck. If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.headuck.app.gooutwithduck.utilities.LocaleUtil" />
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="displayLang"
+            type="String"/>
+        <variable
+            name="inboxItem"
+            type="com.headuck.app.gooutwithduck.data.InboxUiModel.InboxItem"/>
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/inbox_item_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/card_bottom_margin"
+        android:layout_marginStart="@dimen/card_side_margin"
+        android:layout_marginEnd="@dimen/card_side_margin"
+        android:onClick="@{clickListener}"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/inbox_item_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:text="@{LocaleUtil.getVisitLocationName(displayLang, inboxItem.venueInfo)}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:gravity="start"
+                app:layout_constraintEnd_toStartOf="@id/inbox_check_in_or_bookmark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Venue 1"/>
+
+            <TextView
+                android:id="@+id/inbox_item_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text="@{inboxItem.venueInfo.type}"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                android:gravity="start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/inbox_item_last_update"
+                app:layout_constraintTop_toBottomOf="@id/inbox_item_title"
+                tools:text="Type"/>
+
+            <LinearLayout
+                android:id="@+id/inbox_check_in_or_bookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/inbox_bookmark_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:visibility="@{inboxItem.bookmark?View.VISIBLE:View.GONE}"
+                    app:tint="?android:textColorSecondary"
+                    app:srcCompat="@drawable/ic_bookmark"
+                    />
+                <ImageView
+                    android:id="@+id/inbox_check_in_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:visibility="@{inboxItem.bookmark?View.GONE:View.VISIBLE}"
+                    app:tint="?android:textColorSecondary"
+                    app:srcCompat="@drawable/ic_enter_venue"
+                    />
+                <TextView
+                    android:id="@+id/inbox_item_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{inboxItem.bookmark?View.GONE:View.VISIBLE}"
+                    android:text="@{LocaleUtil.getVisitLocationTime(displayLang, inboxItem.date)}"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    tools:text="12:34"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/inbox_item_last_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:text="@{LocaleUtil.getVisitLocationDate(displayLang, inboxItem.lastUpdate)}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inbox_check_in_or_bookmark"
+                tools:text="2021-03-01"/>
+
+            <TextView
+                android:id="@+id/inbox_item_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:text="@{LocaleUtil.getNumCase(displayLang, inboxItem.count)}"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inbox_item_type"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="2"/>
+            <TextView
+                android:id="@+id/inbox_item_exposure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:text="@{LocaleUtil.getExposureText(displayLang, inboxItem.exposure)}"
+                android:textAppearance="?attr/textAppearanceListItemSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inbox_item_last_update"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Indirect"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    </layout>
