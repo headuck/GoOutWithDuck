@@ -22,6 +22,20 @@ Screenshots
 
 <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="20%" /><img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="20%" /><img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="20%" /><img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="20%" />
 
+Releases
+========
+
+[<img src=https://img.shields.io/f-droid/v/com.headuck.app.gooutwithduck.svg>](
+https://img.shields.io/f-droid/v/com.headuck.app.gooutwithduck.svg)
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" 
+      height="75"
+      alt="Get it on F-Droid">](https://f-droid.org/en/packages/com.headuck.app.gooutwithduck)
+
+F-Droid repo
+
+[<img src=https://user-images.githubusercontent.com/79254904/108467911-e5d28b00-72c0-11eb-9722-968168aa4b3c.png>](https://repo.headuck.com/fdroid/repo?fingerprint=A0D3386F3BFE7AEA2DE0FE52CF6B550FFE4CB48320EAE35775418C2024272B58)
+
 Important Notice
 ================
 This software is not in any way endorsed by nor affiliated with the Government of the HKSAR. It is not the official contact tracing app.  DO NOT use this software as a subsitute when there is a mandatory legal requirement to use the official tracing app.  The author takes no responsibility and legal liability for any misuse of this software.
@@ -44,6 +58,20 @@ This software is not in any way endorsed by nor affiliated with the Government o
 * 下載已確診個案及發出通知
 * 設置記錄保留期限
 * 如果需要，可將到訪歷史記錄導出及分享（例如電子郵件）
+
+
+發佈
+===
+[<img src=https://img.shields.io/f-droid/v/com.headuck.app.gooutwithduck.svg>](
+https://img.shields.io/f-droid/v/com.headuck.app.gooutwithduck.svg)
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" 
+      height="75"
+      alt="Get it on F-Droid">](https://f-droid.org/en/packages/com.headuck.app.gooutwithduck)
+
+F-Droid repo
+
+[<img src=https://user-images.githubusercontent.com/79254904/108467911-e5d28b00-72c0-11eb-9722-968168aa4b3c.png>](https://repo.headuck.com/fdroid/repo?fingerprint=A0D3386F3BFE7AEA2DE0FE52CF6B550FFE4CB48320EAE35775418C2024272B58)
 
 重要通知
 ========
